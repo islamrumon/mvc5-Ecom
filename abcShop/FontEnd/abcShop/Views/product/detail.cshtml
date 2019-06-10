@@ -1,0 +1,461 @@
+﻿@model abcShop.Models.product
+
+@{
+    ViewBag.Title = Model.p_name;
+}
+
+<section id="content">
+    <div class="container">
+        @*<div class="shop-banner banner-adv line-scale zoom-image">
+            <a href="#" class="adv-thumb-link"><img src="images/shop/banner-detail.jpg" alt="" /></a>
+            <div class="banner-info">
+                <h2 class="title30 color">Shop</h2>
+                <div class="bread-crumb white"><a href="#" class="white">Home</a><span>Product Detail</span></div>
+            </div>
+        </div>*@
+        <!-- ENd Banner -->
+        <div class="content-shop">
+            <div class="row">
+                
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <div class="product-detail">
+                            <div class="row">
+                                <form id="cartForm">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="detail-gallery">
+                                            <div class="mid">
+                                                <img src="@ViewBag.imgPath@Model.main_image" alt="" />
+                                            </div>
+                                            <div class="gallery-control">
+                                                <div class="carousel" data-visible="4">
+                                                    <ul class="list-none">
+                                                        @foreach (var i in Model.gallery)
+                                                        {
+                                                            <li><a href="#"><img src="@ViewBag.imgPath@i.image" alt="" /></a></li>
+                                                        }
+
+
+                                                    </ul>
+                                                </div>
+                                                <a href="#" class="prev"><i class="icon ion-ios-arrow-thin-left"></i></a>
+                                                <a href="#" class="next"><i class="icon ion-ios-arrow-thin-right"></i></a>
+                                            </div>
+
+
+                                        </div>
+                                        <!-- End Gallery -->
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="detail-info">
+                                            <h2 class="title30 font-bold">@Model.p_name</h2>
+                                            <input type="hidden" name="product_id" id="product_id" value="@Model.product_id" />
+                                            <div class="product-price">
+                                                @if (Model.discountPrice != 0)
+                                                {
+                                                    <del class="silver">৳ <span>@Model.price</span></del>
+                                                    <ins class="color">৳ <span id="mainPrice">@Model.discountPrice</span><span id="cprice">@Model.v_price</span></ins>
+                                                    <input type="hidden" id="vPrice" name="vPrice" value="@Model.discountPrice" />
+                                                }
+                                                else
+                                                {
+                                                    <ins class="color">৳ <span id="mainPrice">@Model.price</span><span id="cprice">@Model.v_price</span></ins>
+                                                    <input type="hidden" id="vPrice" name="vPrice" value="@Model.price" />
+                                                }
+                                            </div>
+                                            <div class="product-rate">
+                                                <div class="product-rating" style="width:100%"></div>
+                                            </div>
+                                            <p class="desc">@Html.Raw(Model.discription)</p>
+
+                                            <div>
+                                                @Html.Raw(ViewBag.Variant)
+                                            </div>
+                                            <ul class="list-inline-block wrap-qty-extra">
+                                                <li>
+
+                                                    <div class="detail-qty">
+                                                        Quntity<input name="quentity" @*onchange="qty()"*@ id="quentity" value="1" type="number" class="form-control" />
+
+                                                    </div>
+
+                                                </li>
+                                                <li>
+                                                    <div class="product-extra-link">
+                                                        <a href="javascript:void(0)" onclick="addCart()" class="addcart-link">Add to cart</a>
+                                                        <a href="javascript:void(0)" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <p class="desc info-extra">
+                                                <label>Category:</label><a href="#" class="color">Fruits Fresh</a>
+                                            </p>
+                                            <p class="desc info-extra">
+                                                <label>ID Product:</label><span class="color">@Model.product_id</span>
+                                            </p>
+                                            <p class="desc info-extra">
+                                                <label>Share:</label>
+                                                <a href="#" class="silver"><i class="fa fa-facebook"></i></a>
+                                                <a href="#" class="silver"><i class="fa fa-twitter"></i></a>
+                                                <a href="#" class="silver"><i class="fa fa-instagram"></i></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </form>
+                          </div>
+                        </div>
+                        <!-- End Product Detail -->
+                        <div class="detail-tabs">
+                            <div class="title-tab-detail">
+                                <ul class="title-tab1 list-inline-block">
+                                    <li class="active"><a href="#tab1" class="title14" data-toggle="tab" aria-expanded="true">Description</a></li>
+                                    <li class=""><a href="#tab2" class="title14" data-toggle="tab" aria-expanded="false">Additional</a></li>
+                                    <li class=""><a href="#tab3" class="title14" data-toggle="tab" aria-expanded="false">Reviews(5)</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab1" class="tab-pane active">
+                                    <div class="detail-descript">
+                                        <h2 class="title30 color">Product Description</h2>
+                                        <p class="desc">@Model.discription</p>
+                                    </div>
+                                </div>
+                                <div id="tab2" class="tab-pane">
+                                    <div class="detail-addition">
+                                        @if (Model.videoLink != null)
+                                        {
+                                            <div class="shop-banner banner-adv line-scale zoom-image">
+                                                <iframe class="youtube-player" type="text/html" width="100%" height="345" src="@Model.videoLink" frameborder="0" allowFullScreen></iframe>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div id="tab3" class="tab-pane">
+                                    <div class="content-tags-detail">
+                                        <h3 class="title14">2 Review for "Fresh Meal Kit"</h3>
+                                        <ul class="list-none list-tags-review">
+                                            <li>
+                                                <div class="review-author">
+                                                    <a href="#"><img src="images/shop/author1.jpg" alt=""></a>
+                                                </div>
+                                                <div class="review-info">
+                                                    <p class="review-header"><a href="#"><strong>7up-theme</strong></a> – March 30, 2017:</p>
+                                                    <div class="product-rate">
+                                                        <div class="product-rating" style="width:100%"></div>
+                                                    </div>
+                                                    <p class="desc">Really a nice stool. It was better than I expected in quality. The color is a rich, honey brown and looks a little lighter than pictured but still a great stool for the money.</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="review-author">
+                                                    <a href="#"><img src="images/shop/author2.jpg" alt=""></a>
+                                                </div>
+                                                <div class="review-info">
+                                                    <p class="review-header"><a href="#"><strong>7up-theme</strong></a> – March 30, 2017:</p>
+                                                    <div class="product-rate">
+                                                        <div class="product-rating" style="width:100%"></div>
+                                                    </div>
+                                                    <p class="desc">Really a nice stool. It was better than I expected in quality. The color is a rich, honey brown and looks a little lighter than pictured but still a great stool for the money.</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="add-review-form">
+                                            <h3 class="title14">Add a Review</h3>
+                                            <p>Your email address will not be published. Required fields are marked *</p>
+                                            @*<form class="review-form">
+                                                <div>
+                                                    <label>Name *</label>
+                                                    <input name="name" id="name" type="text">
+                                                </div>
+                                                <div>
+                                                    <label>Email *</label>
+                                                    <input name="email" id="email" type="text">
+                                                </div>
+                                                <div>
+                                                    <label>Your Rating</label>
+                                                    <div class="product-rate">
+                                                        <div class="product-rating" style="width:100%"></div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label>Your Review *</label>
+                                                    <textarea name="messasge" id="message" cols="30" rows="10"></textarea>
+                                                </div>
+                                                <div>
+                                                    <input class="shop-button radius4" value="Submit" type="submit">
+                                                </div>
+                                            </form>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Tabs Detail -->
+                        <div class="related-product">
+                            <h2 class="title30 font-bold">Related Products</h2>
+                            <div class="related-product-slider product-slider">
+                                <div class="wrap-item group-navi" data-navigation="true" data-pagination="false" data-itemscustom="[[0,1],[560,2],[990,3]]">
+                                    @foreach (var re in Model.relatedProduct)
+                                    {
+                                    <form id="cartForm">
+                                        <div class="item-product item-product-grid text-center">
+
+                                            <div class="product-thumb">
+                                                <a href="/product/detail/@re.product_id" class="product-thumb-link rotate-thumb">
+                                                    <img src="@ViewBag.imgPath@re.main_image" alt="">
+                                                    <img src="@ViewBag.imgPath@re.main_image" alt="">
+                                                </a>
+                                                <a style="cursor:pointer" onclick="quckView(@re.product_id)" class="quickview-link"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="/product/detail/@re.product_id">@re.p_name</a></h3>
+                                                <div class="product-price">
+                                                    <ins class="color">৳ <span>@re.price</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                                @*<div class="product-extra-link">
+                                                    <a href="javascript:void(0)" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+                                                    <a href="javascript:void(0)" onclick="addCart()" class="addcart-link">Add to cart</a>
+                                                    <a href="javascript:void(0)" class="compare-link"><i class="fa fa-compress" aria-hidden="true"></i><span>Compare</span></a>
+                                                </div>*@
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                            }
+
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- End Related Product -->
+                    </div>
+                
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="sidebar-left sidebar-shop">
+                       
+                        
+                        <!-- End Filter Price -->
+                        <div class="widget widget-new-product">
+                            <h2 class="title18 title-widget font-bold">New Arrivals</h2>
+                            <div class="wg-product-slider">
+                                <div class="wrap-item group-navi" data-pagination="false" data-navigation="true" data-itemscustom="[[0,1],[560,2],[768,1]]">
+                                   @Html.Raw(ViewBag.bycategory)
+                                    @*<div class="item">
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_12.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_14.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_20.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_04.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_29.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     End Item 
+                                    <div class="item">
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_22.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_24.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_21.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_25.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-wg-product table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link zoom-thumb">
+                                                    <img src="images/product/fruit_28.jpg" alt="">
+                                                </a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title"><a href="detail.html">Fresh Meal Kit</a></h3>
+                                                <div class="product-price">
+                                                    <del class="silver"><span>€550.00</span></del>
+                                                    <ins class="color"><span>€300.00</span></ins>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <!-- End Item -->
+                                </div>
+                            </div>
+                        </div>
+                         @*End WIdget 
+                        <div class="widget widget-tags">
+                            <h2 class="title18 title-widget font-bold">Search by Tags</h2>
+                            <ul class="wg-list-tabs list-inline-block">
+                                <li><a href="#">Tomato</a></li>
+                                <li><a href="#">Organic</a></li>
+                                <li><a href="#">Tips</a></li>
+                                <li><a href="#">Organic Gardening </a></li>
+                                <li><a href="#">Green</a></li>
+                                <li><a href="#">Food</a></li>
+                                <li><a href="#">Healthy</a></li>
+                                <li><a href="#">Fruits </a></li>
+                                <li><a href="#">Vegatable</a></li>
+                                <li><a href="#">Natural </a></li>
+                            </ul>
+                        </div>*@
+                        <!-- End WIdget -->
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- End Content Shop -->
+    </div>
+</section>

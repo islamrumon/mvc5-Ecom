@@ -1,0 +1,63 @@
+﻿@model backEnd.DataModel.social_site
+
+@{
+    ViewBag.Title = "social";
+}
+
+<div class="section-content">
+    <div class="content-head">
+        <h4 class="content-title">Socile Link</h4><!-- /.content-title -->
+         <!-- /.corner-content -->
+    </div><!-- /.content-head -->
+
+    <div class="content-details show">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.socialId)
+
+                <div class="form-group">
+                    <label class="control-label">Facebook Link</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fb, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.fb, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Twitter Link</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.tw, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.tw, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Instagram Link</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ig, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ig, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+               
+
+              
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        
+        </div>
+    </div>

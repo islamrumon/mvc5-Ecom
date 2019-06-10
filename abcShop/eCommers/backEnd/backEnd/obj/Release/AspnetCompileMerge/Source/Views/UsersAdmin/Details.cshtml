@@ -1,0 +1,60 @@
+﻿@model backEnd.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="section-content">
+    <div class="content-head">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>User Detiels</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+        </div>
+
+       
+        <div>
+            <h4>User</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+            </dl>
+        </div>
+        <h4>List ofGroups this user belongs to:</h4>
+        @if (ViewBag.GroupNames.Count == 0)
+        {
+            <hr />
+            <p>No GRoups found for this user.</p>
+        }
+        <table class="table">
+            @foreach (var item in ViewBag.GroupNames)
+            {
+                <tr>
+                    <td>
+                        @item
+                    </td>
+                </tr>
+            }
+        </table>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+
+    </div>
+</div>
+
+
+

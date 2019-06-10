@@ -1,0 +1,49 @@
+﻿@model backEnd.Models.viewModels.manufacture_vm
+
+@using (Html.BeginForm("editmanufacturer", "settings", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.manufacturer_id)
+    @Html.HiddenFor(model => model.logo)
+
+    <div class="form-group">
+        <label class="control-label">ManuFacturer Name</label>
+
+        @Html.EditorFor(model => model.brand_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.brand_name, "", new { @class = "text-danger" })
+
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Logo</label>
+
+        <input type="file" id="files" name="file" value="@Model.logo" class="form-control" onchange="return fileValidationEditlogo()" />
+
+        <div id="imagePreviewEditlogo">
+            <img width="140" height="100" class="img-thumbnail" src="@ViewBag.url/AppFiles/manufacturer/@Model.logo" id="editHiddenEditlogo" />
+        </div>
+        <div id="errorEditlogo">
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Sorting</label>
+
+        @Html.EditorFor(model => model.sort_order, new { htmlAttributes = new { @class = "form-control" } })
+
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

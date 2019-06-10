@@ -1,0 +1,133 @@
+﻿@model IEnumerable<backEnd.DataModel.item_ladger>
+
+<div class="alert">
+    <form id="dateForm">
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="hidden" name="proId" value="@ViewBag.proId"/>
+                <input type="date" class="form-control" name="start" value="16/8/2018"/>
+            </div>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" name="end" />
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-success" onclick="searchbyDate()">by date</button>
+            </div>
+        </div>
+        
+        
+    </form>
+</div>
+<table id="data-table" class="table data-table1 table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.wareHouse_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pBlance)
+            </th>
+          
+
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.wareHouse_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Invoies)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pBlance)
+                </td>
+                
+
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.wareHouse_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invoies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pBlance)
+            </th>
+            
+
+        </tr>
+    </tfoot>
+
+</table>
+
+<link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/select/1.2.4/css/select.bootstrap4.min.css">
+
+
+<script src="~/backEnd/assets/js/tables/jquery.dataTables.min.js"></script>
+<script src="~/backEnd/assets/js/tables/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        "use strict";
+
+        $('.data-table1').DataTable({
+            "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
+            "ordering": false
+        });
+
+    });
+
+    function searchbyDate() {
+        var s = $("#dateForm").serialize();
+        console.log(s);
+        $.ajax({
+            url: '/Itemladger/bydateshowLadger',
+            data: s ,
+            success: function (result) {
+                $("#tbody").empty();
+                $("#tbody").append(result);
+            }
+        });
+    }
+</script>
+

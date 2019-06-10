@@ -1,0 +1,119 @@
+﻿@model abcShop.Models.product
+
+@{
+    ViewBag.Title = "quickview";
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from demo.7uptheme.com/html/fruitshop/quick-view.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Apr 2018 09:55:36 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Fruit Shop is new Html theme that we have designed to help you transform your store into a beautiful online showroom. This is a fully responsive Html theme, with multiple versions for homepage and multiple templates for sub pages as well" />
+    <meta name="keywords" content="Fruit,7uptheme" />
+    <meta name="robots" content="noodp,index,follow" />
+    <meta name='revisit-after' content='1 days' />
+    <title>Fruit Shop | Detail</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/ionicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery.fancybox.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.transitions.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.theme.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/animate.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/hover.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/color.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/theme.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/responsive.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/browser.css" media="all" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/rtl.css" media="all"/> -->
+</head>
+<body>
+    <div class="wrap">
+        <section id="content">
+            <div class="detail-lightbox">
+
+
+                <form id="cartForm">
+                    <input type="hidden" name="product_id" id="product_id" value="@Model.product_id" />
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="detail-gallery">
+                                <div class="mid">
+                                    <img src="@ViewBag.imgPath@Model.main_image" alt="@Model.p_name" />
+                                </div>
+
+                            </div>
+                            <!-- End Gallery -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="detail-info">
+                                <h2 class="title30 font-bold">
+                                    <a href="/product/detail/@Model.product_id">@Model.p_name</a>
+                                </h2>
+                                <div class="product-price">
+                                    <ins class="color">৳ <span id="mainPrice">@Model.price</span><span id="cprice">@Model.v_price</span></ins>
+                                </div>
+                                <div class="product-rate">
+                                    <div class="product-rating" style="width:100%"></div>
+                                </div>
+                                <p class="desc">
+                                    @Html.Raw(Model.discription)
+                                </p>
+
+                                <div>
+                                    @Html.Raw(ViewBag.variant)
+                                </div>
+                                <ul class="list-inline-block wrap-qty-extra">
+                                    <li>
+                                        <div class="detail-qty">
+                                            Quentity<input name="quentity" id="quentity" @*onchange="qty()"*@ value="1" type="number" class="form-control" />
+
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="product-extra-link">
+                                            <a href="javascript:void(0)" onclick="addCart()" class="addcart-link">Add to cart</a>
+                                            <a href="javascript:void(0)" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- End Content -->
+    </div>
+    <script type="text/javascript" src="~/forntEnd/js/jquery.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.jcarousellite.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/slick.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/popup.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/timecircles.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/wow.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/theme.js"></script>
+</body>
+
+<!-- Mirrored from demo.7uptheme.com/html/fruitshop/quick-view.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 28 Apr 2018 09:55:37 GMT -->
+</html>

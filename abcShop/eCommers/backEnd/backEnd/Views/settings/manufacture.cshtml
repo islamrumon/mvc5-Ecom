@@ -1,0 +1,266 @@
+﻿@model backEnd.Models.viewModels.manufacture_vm
+
+@{
+    ViewBag.Title = "manufacture";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">ManuFacture Setup</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    @using (Html.BeginForm("manufacture", "settings",null,FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="control-label">ManuFacture Name</label>
+
+                            @Html.EditorFor(model => model.brand_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.brand_name, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">ManuFacture Logo</label>
+
+                            
+                                <input type="file" id="file" name="file" class="form-control" onchange="return fileValidationMlogo()" />
+                            
+                            <div id="imagePreviewMlogo"></div>
+                            <div id="errorMlogo">
+                                @*<span class="text-danger" style="display:none">Please upload file having extensions .jpeg/.jpg/.png/.gif only.</span>*@
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Sorting</label>
+                            <input class="form-control" name="sort_order" id="sort_order" type="number" />
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">ManuFacture List</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    <div class="card-body">
+                        <table id="data-table2" class="table data-table2 table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Logo</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <!--Load Partila View-->
+                            <tbody class="load">
+
+
+                                @Html.Raw(ViewBag.brandList)
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+    <!--This is modale section-->
+    <div class="modal fade" id="showModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="loadUrl">
+                    <!--here load partial view-->
+                </div>
+            </div>
+        </div>
+    </div> <!--End THe Modal section-->
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                "use strict";
+
+                $('.data-table2').DataTable({
+                    "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                    "ordering": false
+                });
+
+
+            });
+
+            //this is image validation
+            function fileValidationMlogo() {
+               
+                var fileInput = document.getElementById('file');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    // $('#error').show();
+                    var error = 'Please upload file having extensions .jpeg/.jpg/.png/.gif only.';
+                    document.getElementById('errorMlogo').innerHTML = '<span class="text-danger">' + error + '</span>'
+                    //alert();
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    //Image preview
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#errorMlogo').hide();
+                            $('#editHiddenMlogo').hide();
+                            document.getElementById('imagePreviewMlogo').innerHTML = '<img width="140" height="100" class="img-thumbnail" src="' + e.target.result + '"/>';
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            }
+
+
+
+            function fileValidationEditlogo() {
+                debugger
+                var fileInput = document.getElementById('files');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    // $('#error').show();
+                    var error = 'Please upload file having extensions .jpeg/.jpg/.png/.gif only.';
+                    document.getElementById('errorEditlogo').innerHTML = '<span class="text-danger">' + error + '</span>'
+                    //alert();
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    //Image preview
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#errorEditlogo').hide();
+                            $('#editHiddenEditlogo').hide();
+                            document.getElementById('imagePreviewEditlogo').innerHTML = '<img width="140" height="100" class="img-thumbnail" src="' + e.target.result + '"/>';
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            }
+
+
+            //this is deletemanufacturer function
+            function deletemanufacturer(id) {
+                var x = confirm("Are you sure you want to delete?");
+                if (x) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/settings/deletemanufacturer',
+                        data: { id: id },
+                        success: function () {
+                            $.notify("ManuFacturer Deleted", "success");
+                            $("#tr_" + id).remove();
+                        },
+                        error: function () {
+                            $.notify("BOOM!", "error");
+                        }
+                    });
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            //this is editmanufacturer function
+            function editmanufacturer(id) {
+                var url = "/settings/editmanufacturer/" + id;
+                $("#loadUrl").load(url, function () {
+                    $(".modal-title").text("Edit ManuFacturer")
+                    $("#showModal").modal('show');
+                });
+            }
+
+        </script>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

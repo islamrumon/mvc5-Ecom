@@ -1,0 +1,77 @@
+﻿/*This is For Uploding images*/
+
+
+
+#img-upload {
+    width: 50%;
+}
+
+.modal-open .modal {
+    /* background: #30313e; */
+    background: unset;
+}
+
+input[type=checkbox], input[type=radio] {
+    /* float: left; */
+    margin-top: 6px;
+}
+
+/*Rnd The Uploding Images style*/
+
+.content-wrapper .dashboard-contents .contents-inner {
+    min-height: 95vh;
+    padding: 7px 23px;
+}
+.productImg {
+    height: 130px;
+    width: 160px;
+}
+
+.custom-select[multiple] {
+    height: 231px;
+    background-image: none;
+    width: 392px;
+}
+.custom-select option {
+    margin: 8px;
+}
+.inputfiled {
+    position: relative;
+    z-index: 1;
+    margin-left: -90px;
+    visibility: hidden;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    background-color:darkgray;
+}
+
+.galleryImg {
+    padding: 18px;
+}
+
+
+@media print {
+    aside, header.top-header, div.content-head, div.printBTN, footer {
+        display: none;
+    }
+    div.srPrint {
+        background-image: url(https://st2.depositphotos.com/5750784/11983/i/950/depositphotos_119830342-stock-photo-drawn-texture-background.jpg);
+    }
+
+}
+.srPrint {
+    background-image: url(https://st2.depositphotos.com/5750784/11983/i/950/depositphotos_119830342-stock-photo-drawn-texture-background.jpg);
+}
+
+
+.large {
+    height: calc(2.875rem + 2px);
+}

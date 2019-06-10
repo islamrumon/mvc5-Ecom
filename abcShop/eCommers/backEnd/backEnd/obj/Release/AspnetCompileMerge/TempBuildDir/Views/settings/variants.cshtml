@@ -1,0 +1,200 @@
+﻿
+
+@{
+    ViewBag.Title = "variants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Variant Setup</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+
+                    @model backEnd.Models.viewModels.variant_vm
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+
+
+
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <label class="control-label">Variant Name</label>
+                                    @Html.EditorFor(model => model.variant_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.variant_name, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Selected Variant Type</label>
+                                    <select class="form-control" id="type" name="type">
+                                        <option value="Radio">Radio</option>
+                                        <option value="Select">Select</option>
+                                        <option value="CheckBox">CheckBox</option>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Variant Value</label>
+                                    <div id="appinForm"></div>
+                                    <a class="btn btn-warning" onclick="appininputForm()" href="jabascript:void(0)"><i class="fa fa-edit"></i></a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Variant List</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    <div class="card-body" id="editFormdiv">
+                        <table id="data-table1" class="table data-table1 table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Units</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <!--Load Partila View-->
+                            <tbody class="load">
+
+
+                                @Html.Raw(ViewBag.variantList)
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--This is modale section-->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div> <!--End THe Modal section-->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table1').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false                
+            });
+
+
+            //var url = "/settings/saveVariant";
+            //$("#editFormdiv").load('sdfsdfds');
+
+        });
+
+        function editVariant(id) {
+            var url = "/settings/variantEdit/" + id;
+            $("#loadUrl").load(url, function () {
+                $(".modal-title").text("Edit Variant")
+                $("#showModal").modal('show');
+            });
+        }
+
+        var arr = [];
+        function deleteInputForm1(id) {
+            arr.push(id);
+            $('#area' + id).remove();
+        }
+
+        function appininputForm1() {
+
+            var cou = ($("#appinForm1 input").length) + 1;
+
+            var appendForm = '<div class="input-group mb-3" id="area' + cou + '">' +
+                '<input class="form-control" required placeholder="Type Varient Value" type="text" name="unit_name" id="unit_name' + cou + '" />' +
+
+                '<div class="input-group-append">' +
+                '<a href="javascript:void(0)" class="btn btn-danger" onclick="removiInputForm(' + cou + ')"><i class="pe-7s-trash"></i></a>' +
+                '</div></div>';
+
+            $("#appinForm1").append(appendForm);
+        }
+
+
+            
+
+    </script>
+}

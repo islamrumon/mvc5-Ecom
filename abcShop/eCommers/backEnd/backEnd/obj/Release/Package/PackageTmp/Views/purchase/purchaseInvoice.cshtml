@@ -1,0 +1,99 @@
+﻿@model backEnd.Models.viewModels.purchaseList
+
+@{
+    ViewBag.Title = "purchaseInvoice";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Purchase INVOICE</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+
+            <div class="content-details show" id="printSection">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--This is Order detilas or Shipping Detilas-->
+                        <p class="mt-2 mb-2"><b>Suplier Name:</b>  @Model.sName</p>
+                        <p class="mt-2 mb-2"><b>Suplier Phone:</b>  @Model.sPhone</p>
+                        <p class="mt-2 mb-2"><b>Suplier Mail:</b>  @Model.sMail</p>
+                        <p class="mt-2 mb-2"><b>Suplier Address:</b>  @Model.sAddress</p>
+                    </div>
+                    <div class="col-md-6">
+                          
+                    </div>
+
+                    <hr />
+                    <div class="col-12">
+                        <p><b>Created Date:</b> @DateTime.Now</p>
+                        <p class="mb-0"><b>Invoice Date :</b> @Model.create_date</p>
+                    </div>
+                </div>
+
+                <div>
+                    <hr />
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr class="bg-dark text-white">
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Cost</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var op in Model.purchaseDetialsList)
+                            {
+                                <tr>
+                                    <td>
+                                        @op.product_name
+                                    </td>
+                                    <td>@op.quantity</td>
+                                    <td>@op.purchase_price</td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <div class="table-bottom row">
+
+                    <div class="col-12 text-right">
+                        @*<p class="text-right mb-2">Sub - Total amount: ৳12,348</p>
+                <p class="text-right">vat (10%) : ৳138</p>*@
+                        <h4 class="text-right mb-5">Total : ৳  @Model.total_amount</h4>
+                        <hr>
+                    </div>
+                    <div class="text-right col-12 buttons printBTN">
+                        <a href="javascript:void(0)" class="btn btn-purple float-right mt-4 ml-2" id="print"> <i class="fa fa-print"></i> Print</a>
+
+                    </div>
+                </div>
+            </div><!-- /.content-details -->
+
+
+
+
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+         $("#print").click(function () {
+            window.print();
+        });
+    </script>
+    }

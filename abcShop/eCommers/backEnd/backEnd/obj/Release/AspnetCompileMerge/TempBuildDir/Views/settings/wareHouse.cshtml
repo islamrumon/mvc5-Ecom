@@ -1,0 +1,208 @@
+﻿
+@model backEnd.Models.viewModels.wareHouse_VM
+
+@{
+    ViewBag.Title = "Ware House";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="section-content">
+                <div class="content-head">
+                    <h4 class="content-title">Ware House Setup</h4><!-- /.content-title -->
+                    <div class="corner-content float-right">
+                        <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                        <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                        <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                        <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                    </div><!-- /.corner-content -->
+                </div>
+                <div class="content-details show">
+                    <div class="card pay-invoice">
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <lable class="control-label">WareHouse Name</lable>
+                                    <div class="">
+                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <lable class="control-label">WareHouse Location</lable>
+                                    <div class="">
+                                        @Html.EditorFor(model => model.location, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="section-content">
+                <div class="content-head">
+                    <h4 class="content-title">WareHouse  List</h4><!-- /.content-title -->
+                    <div class="corner-content float-right">
+                        <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                        <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                        <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                        <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                    </div><!-- /.corner-content -->
+                </div>
+                <div class="content-details show">
+                    <div class="card pay-invoice">
+                        <div class="card-body" id="editFormdiv">
+                            <table id="data-table4" class="table data-table4 table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>location</th>
+
+                                        <th>Create Date</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <!--Load Partila View-->
+                                <tbody>
+                                    @foreach (var s in Model.wareHosueList)
+                                    {
+                                        <tr id="tr_@Html.DisplayFor(modelItem => s.warehouse_id)">
+                                            <td> @Html.DisplayFor(modelItem => s.w_name)</td>
+                                            <td> @Html.DisplayFor(modelItem => s.w_location)</td>
+                                            <td> @Html.DisplayFor(modelItem => s.created_at)</td>
+                                            <td>
+
+                                                <a href="javascripts:void(0)" class="btn btn-info" onclick="editwareHouse(@Html.DisplayFor(modelItem => s.warehouse_id))"><i class="fa fa-edit"></i></a> |
+                                                <a href="javascripts:void(0)" class="btn btn-danger" onclick="deletewareHouse(@Html.DisplayFor(modelItem => s.warehouse_id))"><i class="pe-7s-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!--This is modale section-->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div> <!--End THe Modal section-->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table4').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+
+
+        });
+
+        function editwareHouse(id) {
+            var url = "/settings/editwareHouse/" + id;
+            $("#loadUrl").load(url, function () {
+                $(".modal-title").text("Edit WareHouse")
+                $("#showModal").modal('show');
+            });
+        }
+
+        //delete order status
+        function deletewareHouse(id) {
+            var x = confirm("Are you sure you want to delete?");
+            if (x) {
+                $.ajax({
+                    type: 'post',
+                    url: '/settings/deletewareHouse',
+                    data: { id: id },
+                    success: function () {
+                        $.notify("WareHouse is  Deleted", "success");
+                        $("#tr_" + id).remove();
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+                });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+
+
+    </script>
+}
+
+
+
+
+

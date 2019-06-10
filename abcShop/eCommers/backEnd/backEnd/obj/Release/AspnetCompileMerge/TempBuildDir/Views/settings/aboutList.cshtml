@@ -1,0 +1,87 @@
+﻿@model backEnd.DataModel.aboutTbl
+
+@{
+    ViewBag.Title = "aboutList";
+}
+
+<div class="section-content">
+    <div class="content-head">
+        <h4 class="content-title">About us</h4><!-- /.content-title -->
+        <div class="corner-content float-right">
+            <a href="javascript:void(0)" class="btn app-btn btn-success" id="createbtnformData"><i class="fa fa-save">Create product</i></a>
+        </div><!-- /.corner-content -->
+    </div><!-- /.content-head -->
+
+    <div class="content-details show">
+
+        @using (Html.BeginForm())
+        {
+           
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.about_id)
+
+            <div class="form-group">
+                <label class="control-label">About Body</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.body, new { @class = "form-control", @id = "compose-textarea", rows = "15" })
+                    @Html.ValidationMessageFor(model => model.body, "", new { @class = "text-danger" })
+                    @*<textarea class="form-control" id="compose-textarea" name="model.body"></textarea>*@
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label">Email Address</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.emial, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.emial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">PhoneNumber</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.phoneNumber1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.phoneNumber1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">PhoneNumber</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.phoneNumber2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.phoneNumber2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Office Address</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.officeAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.officeAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Map Link</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.mapLink, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.mapLink, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+        </div>
+    </div>
+       

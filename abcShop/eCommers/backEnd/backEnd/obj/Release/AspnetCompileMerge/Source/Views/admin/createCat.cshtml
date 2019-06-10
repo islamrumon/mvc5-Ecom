@@ -1,0 +1,79 @@
+﻿@model backEnd.Models.viewModels.manageCat.create_category_vm
+
+@using (Html.BeginForm("createCat", "admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cat_name, htmlAttributes: new { @class = "control-label" })
+
+        @Html.EditorFor(model => model.cat_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.cat_name, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.videoLink, htmlAttributes: new { @class = "control-label" })
+
+        @Html.EditorFor(model => model.videoLink, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.videoLink, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Parent_id, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownList("Parent_id", (IEnumerable<SelectListItem>)ViewData["parentCat"], "-Please select-", htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Parent_id, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.logo, htmlAttributes: new { @class = "control-label" })
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" id="file" name="logo" class="form-control" onchange="return fileValidation()" />
+            </div>
+            <div class="col-md-6" id="imagePreview"></div>
+            <div id="error">
+                @*<span class="text-danger" style="display:none">Please upload file having extensions .jpeg/.jpg/.png/.gif only.</span>*@
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.banner, htmlAttributes: new { @class = "control-label" })
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" id="banner" name="banner" class="form-control" onchange="return fileValidationBanners()" />
+            </div>
+            <div class="col-md-6" id="imagePreviewBanner"></div>
+            <div id="errorBanner">
+                @*<span class="text-danger" style="display:none">Please upload file having extensions .jpeg/.jpg/.png/.gif only.</span>*@
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+
+        <div class="checkbox">
+            @Html.CheckBoxFor(model => model.top_cat)
+            @*<input type="checkbox" id="top_cat" name="top_cat" class="form-check-input">*@
+            @Html.LabelFor(model => model.top_cat, htmlAttributes: new { @class = "form-check-label" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create Category" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}

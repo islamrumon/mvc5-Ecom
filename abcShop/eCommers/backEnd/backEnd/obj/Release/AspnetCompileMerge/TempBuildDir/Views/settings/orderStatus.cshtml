@@ -1,0 +1,213 @@
+﻿@model backEnd.DataModel.order_status_tbl
+
+@{
+    ViewBag.Title = "orderStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">OrderStatus Setup</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    
+                        <form id="OSform">
+                            <div class="form-horizontal">
+                                <input class="form-control" name="order_status_id" id="id" type="hidden" />
+                                <div class="form-group">
+                                    <label class="control-label">Status Name</label>
+                                    <input class="form-control" name="name" id="name" required />
+                                </div>
+                                <hr />
+                                <a href="javascript:void(0)" class="btn btn-success edit saveOS" >Create Order Status</a>
+                                <a href="javascript:void(0)" class="btn btn-success edit editOS" >Edit  Order Status</a>
+                            </div>
+                        </form>
+          
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">OrderStatus List</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    <div class="card-body" id="editFormdiv">
+                        <table id="data-table1" class="table data-table1 table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="osTr">
+                                @Html.Raw(ViewBag.osList)
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table1').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+            $(".editOS").hide();
+        });
+
+        //edit submit form
+        $(".editOS").click(function () {
+          
+            var data = $("#OSform").serialize();
+            $.ajax({
+                url: '/settings/editOrderS',
+                type: 'post',
+                data: data,
+                success: function (s) {
+                    $("#tr_" + s.order_status_id).remove();
+                    var tr = "<tr id='tr_" + s.order_status_id + "'>" +
+                        "<td>" + s.order_status_id + "</td><td>" + s.name + "</td><td>" +
+                        "<a href='javescript:void()'  type ='button' class='btn radius btn-sm btn-primary '  onclick='editOrderS(" + s.order_status_id + ")'><i class='fa fa-edit'></i></a> | " +
+                        "<a href ='javescript:void()' type='button' class='btn radius btn-sm btn-danger'  onclick='deleteOrderS(" + s.order_status_id + ")'><i class='pe-7s-trash'></i></a></td></tr>";
+                    $("#osTr").append(tr);
+                    $("#id").val('');
+                    $("#name").val('');
+                    $(".control-label").text("Status Name");
+                    $(".saveOS").show();
+                    $(".editOS").hide();
+                    
+                    $.notify("Order Status Updated Successfully", "success");
+                }, error: function () {
+                    $.notify("BOOM!", "error");
+                }
+            });
+
+        });
+
+        //save the oredr status
+        $(".saveOS").click(function () {
+            debugger
+            var data = $("#OSform").serialize();
+            $.ajax({
+                url: '/settings/orderStatus',
+                type: 'post',
+                data: data,
+                success: function (s) {
+                    var tr = "<tr id='tr_" + s.order_status_id + "'>" +
+                        "<td>" + s.order_status_id + "</td><td>" + s.name + "</td><td>" +
+                        "<a href='javescript:void()'  type ='button' class='btn radius btn-sm btn-primary '  onclick='editOrderS(" + s.order_status_id + ")'><i class='fa fa-edit'></i></a> | " +
+                        "<a href ='javescript:void()' type='button' class='btn radius btn-sm btn-danger'  onclick='deleteOrderS(" + s.order_status_id + ")'><i class='pe-7s-trash'></i></a></td></tr>";
+                    $("#osTr").append(tr);
+                    $("#id").val('');
+                    $("#name").val('');
+                    
+                    $.notify("Order Status Create Successfully", "success");
+                }, error: function () {
+                    $.notify("BOOM!", "error");
+                }
+            });
+        
+        });
+        
+
+        //delete order status
+        function deleteOrderS(id) {
+            var x = confirm("Are you sure you want to delete?");
+            if (x) {
+                $.ajax({
+                    type: 'post',
+                    url: '/settings/deleteOrderS',
+                    data: { id: id },
+                    success: function () {
+                        $.notify("Order Status Deleted", "success");
+                        $("#tr_" + id).remove();
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+                });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+       
+
+
+        //edit form 
+        function editOrderS(id) {
+            $.ajax({
+                url: '/settings/editOrderS',
+                type:'get',
+                data: { id: id },
+                success: function (d) {
+                    $(".control-label").text("Edit Order Status");
+                    $(".saveOS").hide();
+                    $("#id").val(d.order_status_id);
+                    $("#name").val(d.name);
+                    $(".editOS").show();
+
+                }, error: function () {
+                    $.notify("BOOM!", "error");
+                }
+            });
+        }
+
+    </script>
+    }

@@ -1,0 +1,189 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="Hi5Dash - HTML5 Admin Template By Jewel Theme">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" href="apple-touch-icon.html">
+    <link rel="stylesheet" href="~/backEnd/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/linea-basic.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/icon-weather.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/countrySelect.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/backEnd/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/cdn.datatables.net/select/1.2.4/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/presets.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/style.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/mail/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/mail/mail.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/tab.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/sliders.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/ribbons.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/progress-bars.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/modals.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/widget/widgets.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/chart/chartist.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/chart/c3.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/chart/chart.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/chart/morris.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/widget/jquery-jvectormap.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/dropdown.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/card.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/buttons.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/tables/tables.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/ui/alerts.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/forms/chosen.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/forms/forms.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/pages/pages.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/calendar/calendar.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/e-commerce/e-commerce.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/index-01.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/responsive.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/appStyle.css">
+
+
+</head>
+
+<body class="index-01">
+
+    @Html.Partial("_top-header")
+    <!-- /.top-header -->
+
+    <div class="content-wrapper container-fluid">
+        @Html.Partial("_asidMenu")
+        <!-- /.left-panel -->
+        <div class="dashboard-contents">
+            <div class="contents-inner">
+
+                @RenderBody()
+
+            </div><!-- /.contents-inner -->
+
+            @Html.Partial("_footer")
+            <!-- /.site-footer -->
+        </div><!-- /.dashboard-contents -->
+    </div><!-- /.content-wrapper -->
+    @*<script src="~/backEnd/assets/js/jquery-3.2.1.slim.min.js"></script>*@
+
+    <!---->
+
+    <script src="~/backEnd/assets/js/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="~/backEnd/assets/js/jquery.min.js"></script>
+    <script src="~/backEnd/assets/js/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/backEnd/assets/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="~/backEnd/assets/js/plugins.js"></script>
+    <script src="~/backEnd/assets/js/notify.min.js"></script>
+    <script src="~/backEnd/assets/js/forms/chosen.jquery.min.js"></script>
+    <script src="~/backEnd/assets/js/forms/forms.js"></script>
+    <script src="~/backEnd/printThis.js"></script>
+
+    <!--Mail -->
+    <script src="~/backEnd/assets/js/mail/icheck.js"></script>
+    <script src="~/backEnd/assets/js/mail/mailbox.js"></script>
+    <script src="~/backEnd/assets/js/mail/bootstrap3-wysihtml5.all.min.js"></script>
+    <!--Morris Chart-->
+    @*<script src="~/backEnd/assets/js/charts/morris/raphael-min.js"></script>
+        <script src="~/backEnd/assets/js/charts/morris/morris.js"></script>*@
+    <!--Chartist Chart-->
+    @*<script src="~/backEnd/assets/js/charts/chartist/chartist.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/chartist/chartist-plugin-legend.js"></script>*@
+    <!--Sparkline Chart-->
+    @*<script src="~/backEnd/assets/js/charts/sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/sparkline/sparkline.chart.init.js"></script>
+        <script src="~/backEnd/assets/js/charts/chartist/chartist.init.js"></script>
+        <script src="~/backEnd/assets/js/widgets/static.js"></script>*@
+    <!--Flot Chart-->
+    @*<script src="~/backEnd/assets/js/charts/flot/jquery.flot.js"></script>
+        <script src="~/backEnd/assets/js/charts/flot/jquery.flot.pie.js"></script>
+        <script src="~/backEnd/assets/js/charts/flot/jquery.flot.resize.js"></script>
+        <script src="~/backEnd/assets/js/charts/flot/jquery.flot.spline.js"></script>
+        <script src="~/backEnd/assets/js/widgets/charts.init.js"></script>
+        <script src="~/backEnd/assets/js/charts/flot/flot.chart.init.js"></script>
+        <script src="~/backEnd/assets/js/charts/chartjs/Chart.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/chartjs/chart.js"></script>*@
+    <!--For Weather-->
+    @*<script src="~/backEnd/assets/js/owl.carousel.min.js"></script>
+        <script src="~/backEnd/assets/js/widgets/weather.js"></script>
+        <script src="~/backEnd/assets/js/widgets/jvectormap.bundle.js"></script>
+        <script src="~/backEnd/assets/js/widgets/gauge.js"></script>*@
+
+    <!--Rickshaw Chart-->
+    @*<script src="~/backEnd/assets/js/charts/rickshaw/d3.js"></script>
+        <script src="~/backEnd/assets/js/charts/rickshaw/rickshaw.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/rickshaw/ResizeSensor.js"></script>
+        <script src="~/backEnd/assets/js/charts/rickshaw/rickshaw.init.js"></script>*@
+    <!--JustGage-->
+    @*<script src="~/backEnd/assets/js/charts/gauge/raphael-2.1.4.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/gauge/gauge.min.js"></script>
+        <script src="~/backEnd/assets/js/charts/gauge/gage.chart.init.js"></script>*@
+    <!--Google Chart-->
+    @*<script src="~/backEnd/assets/www.gstatic.com/charts/loader.js"></script>
+        <script src="~/backEnd/assets/js/charts/google/google.chart.init.js"></script>
+        <script src="~/backEnd/assets/js/jquery-3.2.1.slim.min.js"></script>*@
+    <!--For Datatable-->
+    <script src="~/backEnd/assets/js/tables/jquery.dataTables.min.js"></script>
+    <script src="~/backEnd/assets/js/tables/dataTables.bootstrap4.min.js"></script>
+    <!-- Editable -->
+    <script src="~/backEnd/assets/js/tables/mindmup-editabletable.js"></script>
+    <script src="~/backEnd/assets/js/tables/numeric-input-example.js"></script>
+    <script src="~/backEnd/assets/js/tables/tables.js"></script>
+    <!--For Calendar-->
+    @*<script src="~/backEnd/assets/js/calendar/moment.js"></script>
+        <script src="~/backEnd/assets/js/calendar/fullcalendar.min.js"></script>*@
+
+    <script src="~/backEnd/assets/js/index/index-01.js"></script>
+    <script src="~/backEnd/assets/js/main.js"></script>
+
+    <script>
+        $(function () {
+            "use strict";
+
+            $('#calendar').fullCalendar();
+
+        });</script>
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table').DataTable();
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            "use strict";
+
+            $("#compose-textarea").wysihtml5();
+
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function () {
+            "use strict";
+
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
+
+
+    <script src="~/backEnd/assets/js/appScript.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+﻿@model abcShop.Models.product
+@{
+    
+}
+
+<form id="cartForm">
+    <input type="hidden" name="product_id" id="product_id" value="@Model.product_id"/>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="detail-gallery">
+                <div class="mid">
+                    <img src="@ViewBag.imgPath@Model.main_image" alt="@Model.p_name" />
+                </div>
+
+            </div>
+            <!-- End Gallery -->
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="detail-info">
+                <h2 class="title30 font-bold">
+                    <a href="/product/detail/@Model.product_id">@Model.p_name</a>
+                </h2>
+                <div class="product-price">
+                    <ins class="color">৳ <span id="mainPrice">@Model.price</span><span id="cprice">@Model.v_price</span></ins>
+                </div>
+                <div class="product-rate">
+                    <div class="product-rating" style="width:100%"></div>
+                </div>
+                <p class="desc">
+                    @Html.Raw(Model.discription)
+                </p>
+
+                <div>
+                    @Html.Raw(ViewBag.variant)
+                </div>
+                <ul class="list-inline-block wrap-qty-extra">
+                    <li>
+                        <div class="detail-qty">
+                            Quentity<input name="quentity" id="quentity" @*onchange="qty()"*@ value="1" type="number" class="form-control"/>
+                            
+                        </div>
+                    </li>
+                    <li>
+                        <div class="product-extra-link">
+                            <a href="javascript:void(0)" onclick="addCart()"  class="addcart-link">Add to cart</a>
+                            <a href="javascript:void(0)" class="wishlist-link"><i class="fa fa-heart-o" aria-hidden="true"></i><span>Wishlist</span></a>
+                            
+                        </div>
+                    </li>
+                </ul>
+                
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    @*<script>
+        $(document).ready(function () {
+            
+            });
+
+
+    </script>*@
+}
+
+<!-- End Content -->

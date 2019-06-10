@@ -1,0 +1,92 @@
+﻿@model abcShop.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div id="content">
+    <div class="content-page">
+        <div class="container" style="margin-top:20px">
+            @*<div class="shop-banner banner-adv line-scale zoom-image">
+                    <a href="#" class="adv-thumb-link"><img src="~/forntEnd/images/page/about.jpg" alt="" /></a>
+                    <div class="banner-info">
+                        <h2 class="title30 color">Login/Register</h2>
+                        <div class="bread-crumb white"><a href="#" class="white">Home</a><span>Check Out</span></div>
+                    </div>
+                </div>*@
+            <!-- ENd Banner -->
+            <div class="register-content-box">
+                <h2 class="title30 font-bold text-uppercase text-center">Login</h2>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-ms-12">
+                        <div class="block-login">
+                            <section id="loginForm">
+                                @using (Html.BeginForm("Login", "mamber", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <label class="control-label">UserName or Email </label>
+
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Password, new { @class = " control-label" })
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(m => m.RememberMe)
+                                                @Html.LabelFor(m => m.RememberMe)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-4 col-md-push-4">
+                                            <input type="submit" value="Log in" class="shop-button bg-color" />
+                                        </div>
+                                    </div>
+
+                                }
+                            </section>
+                        </div>
+
+                        <!---End Login Form-->
+
+                        @*<section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new abcShop.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>*@
+
+
+                        <hr />
+                        <p>
+                            @Html.ActionLink("Register a new user?", "Register")
+                        </p>
+                        <p>
+                            @Html.ActionLink("Forget your password?", "ForgotPassword")
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Content Pages -->
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

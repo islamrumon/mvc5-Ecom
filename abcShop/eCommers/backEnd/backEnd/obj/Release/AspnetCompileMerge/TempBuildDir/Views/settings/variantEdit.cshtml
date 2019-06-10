@@ -1,0 +1,43 @@
+﻿@model backEnd.Models.viewModels.variant_vm
+
+@using (Html.BeginForm("variantEdit", "settings", null, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.varient_id)
+
+    <div class="form-group">
+        <label class="control-label">Variant Name</label>
+        @Html.EditorFor(model => model.variant_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+    </div>
+    @*@{string isUserConnected = string.IsNullOrEmpty(Model.type);*@
+        <div class="form-group">
+            <label class="control-label">Selected Variant Type</label>
+            <select class="form-control" id="type" name="type">
+                <option @(Model.type == "Radio" ? "selected" : "") value="Radio">Radio</option>
+                <option @(Model.type == "Select" ? "selected" : "") value="Select">Select</option>
+                <option @(Model.type == "CheckBox" ? "selected" : "") value="CheckBox">CheckBox</option>
+
+            </select>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label">Variant Value</label>
+            <div id="appinForm1">  @Html.Raw(ViewBag.vunitList)</div>
+            <a class="btn btn-primary" onclick="appininputForm1()" href="jabascript:void(0)"><i class="fa fa-edit"></i></a>
+        </div>
+
+
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary center" value="Update" />
+        </div>
+    </div>
+}
+
+

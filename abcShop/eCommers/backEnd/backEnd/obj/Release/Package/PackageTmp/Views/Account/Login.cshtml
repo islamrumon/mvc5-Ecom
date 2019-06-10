@@ -1,0 +1,101 @@
+﻿@model backEnd.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" href="apple-touch-icon.html">
+
+    <!-- Import Template Icons CSS Files -->
+    <link rel="stylesheet" href="~/backEnd/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/linea-basic.css">
+
+    <!-- Import Custom Country Select CSS Files -->
+    <link rel="stylesheet" href="~/backEnd/assets/css/countrySelect.min.css">
+
+    <!-- Import Perfect ScrollBar CSS Files -->
+    <link rel="stylesheet" href="~/backEnd/assets/css/perfect-scrollbar.css">
+
+    <!-- Import Bootstrap CSS File -->
+    <link rel="stylesheet" href="~/backEnd/assets/css/bootstrap.min.css">
+
+    <!-- Import Template's CSS Files -->
+    <link rel="stylesheet" href="~/backEnd/assets/css/presets.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/style.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/pages/pages.css">
+    <link rel="stylesheet" href="~/backEnd/assets/css/responsive.css">
+</head>
+
+
+<body>
+
+    <div class="admin-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-md-3">
+                    <div class="login-content bg-light">
+                        <div class="login-logo pt-4 pb-3 background-bg" data-image-src="~/backEnd/images/we.jpg">
+                            <a href="/">
+                                <img class="align-content" src="~/backEnd/images/logo2.png">
+                            </a>
+                            <p class="mt-2 mb-0 color-white">Welcome To Login Panal</p>
+                        </div>
+                        <div class="login-form">
+
+                            <section id="loginForm">
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <lSource Sans Pro>Email address</lSource>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <lSource Sans Pro>Password</lSource>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="checkbox">
+                                        <lSource Sans Pro>
+                                            @Html.CheckBoxFor(m => m.RememberMe) Remember Me
+                                        </lSource>
+                                        <lSource Sans Pro class="pull-right">
+                                            @Html.ActionLink("Forget your password?", "ForgotPassword")
+                                        </lSource>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-flat mb-3 mt-3">Sign in</button>
+                                }
+
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/backEnd/assets/js/jquery-3.2.1.slim.min.js"></script>
+    <script src="~/backEnd/assets/js/plugins.js"></script>
+    <script src="~/backEnd/assets/js/main.js"></script>
+
+
+</body>
+</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

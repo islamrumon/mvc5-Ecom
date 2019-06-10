@@ -1,0 +1,135 @@
+﻿@model IEnumerable<backEnd.DataModel.slider_image_tbl>
+
+@{
+    ViewBag.Title = "listSlider";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+
+<div class="section-content">
+    <div class="content-head">
+        <h4 class="content-title">Slider Setup</h4><!-- /.content-title -->
+        <div class="corner-content float-right">
+            <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+            <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+            <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+            <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+        </div><!-- /.corner-content -->
+    </div>
+    <div class="content-details show">
+        <a href="/admin/createSlider" class="alert text-info">createSlider</a>
+        <table id="data-table" class="table data-table table-striped table-bordered">
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Sub Title
+                </th>
+                <th>
+                   Link
+                </th>
+                <th>
+                   image
+                </th>
+                <th>
+                   SortOrder
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr id="tr_@item.slider_image_id">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.slider_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.subtitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.link)
+                    </td>
+                    <td>
+                        <img src="~/AppFiles/@item.image" class="img-thumbnail" style="width:130px; height:100px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sort_order)
+                    </td>
+                    <td>
+                       
+                        <a href="/admin/editSlider/@item.slider_image_id" type="button" class="btn radius btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                        <a href="javescript:void()" type="button" class="btn radius btn-sm btn-danger" onclick="deleteSlider(@item.slider_image_id)"><i class="pe-7s-trash"></i></a>
+                       
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
+
+@section scripts{
+    
+    <script>
+
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table1').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+
+
+        });
+
+
+        function deleteSlider(id) {
+            var x = confirm("Are you sure you want to delete?");
+            if (x) {
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/deleteSlider',
+                    data: { id: id },
+                    success: function () {
+                        $.notify("Slider Deleted", "success");
+                        $("#tr_" + id).remove();
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+                });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+    }

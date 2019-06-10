@@ -1,0 +1,123 @@
+﻿@model IEnumerable<backEnd.DataModel.product_tbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">All Product</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+
+            <div class="content-details show">
+                <table class="table data-table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quintity Balance</th>
+                            <th>Image</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.p_name) </td>
+                                <td> @Html.DisplayFor(modelItem => item.price)</td>
+                                <td> @Html.DisplayFor(modelItem => item.quantity)</td>
+                                <td><img src="~/AppFiles/Product/@item.main_image" class="img-thumbnail" style="width:130px; height:100px" /></td>
+                                <td>
+                                    <button class="btn radius btn-sm btn-primary" onclick="showModel(@item.product_id)">Product Ladger</button>
+
+
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quintity Balance</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div><!-- /.content-details -->
+        </div>
+    </div>
+
+</div>
+
+<div id="showModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product Ladger</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="datatable">
+               
+                    <!--here load partial view-->
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+
+   
+
+    <script>
+
+
+        function showModel(id) {
+
+            var url = "/Itemladger/showLadger/" + id;
+            $("#datatable").load(url, function () {
+                $("#showModal").modal('show');
+            });
+
+        }
+    </script>
+
+}

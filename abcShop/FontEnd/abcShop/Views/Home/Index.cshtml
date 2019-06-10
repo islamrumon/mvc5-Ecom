@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Shop Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="content">
+
+    @Html.Partial("_banner")
+    <!-- End Banner -->
+    <div class="container">
+
+
+        @Html.Partial("_list-service")
+        <!-- End List Service -->
+
+        @Html.Partial("_list-adv1")
+        <!-- End List Adv -->
+       
+
+        @Html.Partial("_product-best-sale")
+        <!-- End Product Best Sale -->
+    </div>
+   
+   
+      
+     
+   @Html.Partial("_client_review");
+    <!-- End Client Review -->
+    @Html.Partial("_brand")
+    <!-- End List Brand -->
+   
+    @Html.Partial("_map")
+  
+    <!-- End Google Map -->
+</section>
+

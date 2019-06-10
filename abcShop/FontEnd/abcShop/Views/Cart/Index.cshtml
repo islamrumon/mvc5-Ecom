@@ -1,0 +1,168 @@
+﻿@model IEnumerable<abcShop.Models.cart>
+
+@{
+    ViewBag.Title = "Cart Index";
+    var taka = 0.0;
+    int i = 0;
+    int[] cid;
+
+}
+@if (Model != null)
+{
+    <section id="content">
+        <div class="container">
+            <div class="content-page">
+                @*<div class="shop-banner banner-adv line-scale zoom-image">
+                        <a href="#" class="adv-thumb-link"><img src="images/page/about.jpg" alt="" /></a>
+                        <div class="banner-info">
+                            <h2 class="title30 color">Cart</h2>
+                            <div class="bread-crumb white"><a href="#" class="white">Home</a><span>Cart</span></div>
+                        </div>
+                    </div>*@
+                <!-- ENd Banner -->
+                <div class="content-cart-checkout woocommerce">
+                    <h2 class="title30 font-bold text-uppercase">Cart</h2>
+                    <!--This is form for -->
+                    @using (Html.BeginForm("update", "cart", FormMethod.Post))
+                    {
+                        <div class="table-responsive">
+                            <table class="shop_table cart table">
+                                <thead>
+                                    <tr>
+                                        <th class="product-remove">&nbsp;</th>
+                                        <th class="product-thumbnail">&nbsp;</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                       
+                                        <tr class="cart_item" id="de_@item.cartID">
+                                            <td class="product-remove">
+                                                <a class="remove" href="javascript:void(0)" onclick="deleteCartProduct(@item.cartID)"><i class="fa fa-times"></i></a>
+                                            </td>
+                                            <td class="product-thumbnail">
+                                                <a href="javascript:void(0)"><img src="@ViewBag.proImg@item.img" alt="" style="width:100px; height:100px;" /></a>
+                                            </td>
+                                            <td class="product-name" data-title="Product">
+                                                <a href="Javascript:void(0)">@item.p_name</a>
+                                                @if (item.varints != null)
+                                                {
+                                                    foreach (var v in item.varints)
+                                                    {
+                                                        <p>@v.variantName : <span>@v.varintUnit</span></p>
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td class="product-price" data-title="Price">
+                                                <span class="amount">
+                                                    ৳ @item.VorMainPrice
+                                                </span>
+                                            </td>
+                                            <td class="product-quantity" data-title="Quantity">
+                                                <div class="detail-qty info-qty border radius6 text-center">
+                                                
+                                                    <input class="form-control" type="hidden" name="product_idArray" value="@item.product_id" />
+                                                    <input class="form-control" type="hidden" name="cartIDArray" value="@item.cartID" />
+                                                    <input class="form-control" type="number" name="quntityArray" value="@item.quntity" />
+                                                </div>
+                                            </td>
+                                            <td class="product-subtotal" data-title="Total">
+                                                <span class="amount"> @item.totalPrice</span>
+                                                @if (item.discountPrices != 0)
+                                                {
+                                                <p>You Get :<b>৳ @item.discountPrices</b> Discount</p>
+                                                }
+                                                <span style="display:none;"> @( @taka = @taka + @item.totalPrice)</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                   
+
+                                        <tr>
+                                            <td class="actions">
+                                                @*<div class="coupon">
+                                                    <label for="coupon_code">Coupon:</label>
+                                                    <input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">
+                                                    <input type="submit" value="Apply Coupon" name="apply_coupon" class="button bg-color">
+                                                </div>*@
+                                                
+                                            </td>
+                                            <td class="actions">
+
+                                            </td>
+                                            <td class="actions">
+                                                <input type="submit" value="Update Cart" name="update_cart" class="button bg-color">
+                                            </td>
+                                            <td class="actions">
+
+                                            </td>
+                                            <td class="actions">
+                                                <b>Total</b>
+                                            </td>
+                                            <td class="actions">
+                                            
+                                                <strong class="amount">৳ @taka</strong>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    <div class="cart-collaterals">
+                        <div class="cart_totals ">
+                            <h2>Cart Totals</h2>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr class="cart-subtotal">
+                                            <th>Subtotal</th>
+                                            <td><strong class="amount">৳ @taka</strong></td>
+                                        </tr>
+                                        @*<tr class="shipping">
+                                            <th>Shipping</th>
+                                            <td>
+                                                <ul class="list-none" id="shipping_method">
+                                                    <li>
+                                                        <input type="radio" class="shipping_method" checked="checked" value="free_shipping" id="shipping_method_0_free_shipping" data-index="0" name="shipping_method[0]">
+                                                        <label for="shipping_method_0_free_shipping">Free Shipping</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" class="shipping_method" value="local_delivery" id="shipping_method_0_local_delivery" data-index="0" name="shipping_method[0]">
+                                                        <label for="shipping_method_0_local_delivery">Local Delivery (Free)</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" class="shipping_method" value="local_pickup" id="shipping_method_0_local_pickup" data-index="0" name="shipping_method[0]">
+                                                        <label for="shipping_method_0_local_pickup">Local Pickup (Free)</label>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr class="order-total">
+                                            <th>Total</th>
+                                            <td><strong><span class="amount">৳ @taka</span></strong> </td>
+                                        </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="wc-proceed-to-checkout">
+                                <a class="checkout-button button alt wc-forward bg-color" href="/Cart/Checkout">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content Pages -->
+    </section>
+}
+else
+{
+    <h1 class="color">Your Cart IS Empty</h1>
+}

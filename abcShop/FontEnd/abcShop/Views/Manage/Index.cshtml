@@ -1,0 +1,132 @@
+﻿@model abcShop.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage your mamber";
+}
+
+
+<section id="content">
+    <div class="container">
+        <div class="content-page">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="list-group">
+                            <h4 class="list-group-item list-group-item-action">Dear : @Model.firstname</h4>
+                            @*<p class="card-text">Join Date: @Model.date_added</p>*@
+                          
+                      
+                            <p class="list-group-item list-group-item-action">
+                                @if (Model.HasPassword)
+                                {
+                                    @Html.ActionLink("Change your password", "ChangePassword")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Pick a password", "SetPassword")
+                                }
+                            </p>
+                            <p class="list-group-item list-group-item-action">
+                                Phone Number: @(Model.PhoneNumber ?? "None") [
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    @Html.ActionLink("Change", "AddPhoneNumber")
+                                    @: &nbsp;|&nbsp;
+                                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Add", "AddPhoneNumber")
+                                }
+                                ]
+                            </p>
+                        </div>
+                    </div>
+                    
+                    @*<p>
+                        External Logins: @Model.Logins.Count
+                        @Html.ActionLink("[Manage]", "ManageLogins")
+                    </p>
+                    @if (Model.TwoFactor)
+                    {
+                        <form method="post" action="/Manage/DisableTFA">
+                            <p>
+                                Two factor is currently enabled:
+                                <input type="submit" value="Disable" class="btn btn-default" />
+                            </p>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" action="/Manage/EnableTFA">
+                            <p>
+                                Two factor is currently disabled:
+                                <input type="submit" value="Enable" class="btn btn-default" />
+                            </p>
+                        </form>
+                    }
+                    @if (Model.BrowserRemembered)
+                    {
+                        <form method="post" action="/Manage/ForgetBrowser">
+                            <p>
+                                Browser is curently remembered for two factor:
+                                <input type="submit" value="Forget Browser" class="btn btn-default" />
+                            </p>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" action="/Manage/RememberBrowser">
+                            <p>
+                                Browser is curently not remembered for two factor:
+                                <input type="submit" value="Remember Browser" class="btn btn-default" />
+                            </p>
+                        </form>
+                    }*@
+                </div>
+
+                <div class="col-md-8">
+                    <p>Order List</p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Method</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var s in Model.Orderlist)
+                            {
+                                <tr>
+
+                                    <td scope="row">@s.date_added</td>
+                                    <td>@s.total</td>
+                                    <td>@s.payment_method</td>
+                                    <td>@s.order_status</td>
+                                    <td><a href="/Manage/Orders/@s.order_id" >
+                                            <span class="mini-cart-view shop-button color"><i class="fa fa-eye"></i></span></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <th>Order Date</th>
+                                <th>Price</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th></th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+            

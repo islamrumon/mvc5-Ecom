@@ -1,0 +1,319 @@
+﻿@model backEnd.Models.viewModels.purchaseVM
+
+@{
+    ViewBag.Title = "create";
+}
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-content">
+                <div class="content-head">
+                    <h4 class="content-title">Purchase</h4><!-- /.content-title -->
+                    <div class="corner-content float-right">
+                        <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                        <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                        <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                        <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                    </div><!-- /.corner-content -->
+                </div>
+                <div class="content-details show">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal row">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group col-md-4">
+                            <lable class="control-label">Select Supplier</lable>
+
+                            @Html.DropDownListFor(model => model.supplier_id, ViewBag.Suplier as SelectList, new { @class = "form-control" })
+                            @*@Html.DropDownList("Name", new SelectList(ViewBag.Suplier, "supplier_id", "Name"))*@
+                            @*@Html.EditorFor(model => model.supplier_id, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.supplier_id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">WareHouse select</label>
+
+                            @Html.DropDownListFor(model => model.warehouse_id, ViewBag.warehouse as SelectList, new { @class = "form-control" })
+                            @*@Html.DropDownList("w_name", new SelectList(ViewBag.warehouse, "warehouse_id", "w_name"))
+            @Html.EditorFor(model => model.warehouse_id, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.warehouse_id, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Total Price</label>
+
+                            @Html.EditorFor(model => model.total_amount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.total_amount, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <hr />
+
+                        <!--Search The Product-->
+                        <div class="form-group col-md-10">
+                            <label class="control-label"> Select Related Product</label>
+                            @Html.DropDownList("produc", (MultiSelectList)ViewBag.ProductList,"-----Search Product--------", new { @class = "standardSelect large" , onchange= "purchase(this)"})
+                            @Html.ValidationMessageFor(model => model.product_id, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="/manageProducts/Create" class="btn btn-primary btn-sm">Create Product</a>
+                        </div>
+
+                        <!--Show The Product In table-->
+                        <table id="data-table4" class="table data-table4 table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Cost</th>
+                                    <th>Quantity</th>
+                                    <th>Sale Price</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tdS">
+                                @*<tr>
+                                    <td>Product Name</td>
+                                    <td>Price</td>
+                                    <td>Create Date</td>
+                                    <td></td>
+                                </tr>*@
+                            </tbody>
+
+                        </table>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
+
+    <div class="modal fade bd-example-modal-lg" id="showModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="loadUrl">
+                    <!--here load partial view-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script>
+
+
+      
+        function purchase(sel) {
+            var t = $("#produc option:selected").val();
+
+            //send the value in controller
+
+            $.ajax({
+                url: '/purchase/productRows',
+                data: { pID:t },
+                type: 'post',
+                success: function (result) {
+                    $("#tdS").append(result);
+                  
+                },
+              
+
+            });
+            
+            var i = $("#produc option").removeAttr('selected');
+
+          
+         //   alert(t)
+            //alert(i)
+
+            //this is workd
+           //var opts = [],
+           //    opt;
+           // var len = sel.options.length;
+           // for (var i = 0; i < len; i++) {
+           //     opt = sel.options[i];
+
+           //     if (opt.selected) {
+           //         opts.push(opt);
+           //        // alert(opt.value);
+           //     }
+           // }
+
+           // console.log(opts);
+           // //send the vaue in ajax
+
+           // $.ajax({
+           //     url: '/purchase/productRows',
+           //     data: { pID: opts },
+           //     type: 'post',
+           //     success: function (result) {
+           //         alert(result);
+           //     }
+
+            //});
+            //productRows();
+        }
+
+
+      
+
+
+        function removePro(id) {
+            $('#tr_' + id).remove();
+        }
+
+
+
+
+        
+
+
+
+        function changeView(thisTag, id, name) {
+            alert("i am foirm 1");
+            $(thisTag).toggleClass('btn-success');
+
+            if ($("#appendArea").find("#appendVarientUnit" + id).length > 0) {
+                $("#appendVarientUnit" + id).remove();
+            } else {
+
+                $.ajax({
+                    url: '/manageProducts/getUnit/' + id,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (result) {
+                        var rt = "<div class='section-content m-0'><div class='content-head'>" +
+                            "<h4 class='content-title'>" + name + "</h4><div class='corner-content float-right'>" +
+                            "<button class='content-settings' data-toggle='tooltip' data-placement='top' data-original-title='Settings'><i class='fa fa-cog'></i></button>" +
+                            "<button class='content-refresh'data-toggle='tooltip' data-placement='top' data-original-title='Reload'><i class='fa fa-refresh'></i></button>" +
+                            "<button class='content-collapse' data-toggle='tooltip' data-placement='top' data-original-title='Collapse'><i class='fa fa-angle-down'></i></button>" +
+                            "<button class='content-close' data-toggle='tooltip' data-placement='top' data-original-title='Close'><i class='fa fa-close'></i></button>" +
+                            "</div></div><div class='content-details show'><div id='appendVarientUnit" + id + "'><table id='veTable" + id + "' class='table' ><tbody><input type='hidden' name='varient_id' value='" + id + "' /><tr id='ar" + result.variant_unit_id + "'><td><select name='variant_unit_id' class='form-control'>";
+                        $.each(result.list, function (index, value) {
+                            rt += '<option value="' + value.variant_unit_id + '">' + value.unit_name + '</option>';
+
+                        });
+                        rt += "</select></td><td><input class=\"form-control\" type=\"text\" placeholder=\"Quentity\" name=\"quentity\"/></td>" +
+                            "<td><input class=\"form-control\" type=\"text\" placeholder=\"+/-Price\" name=\"pVprice\" /></td>" +
+                            "<td><button class=\"btn btn-danger removeVfrom\" type=\"button\" ><i class=\"fa fa-trash\"></i></button></td>" +
+                            "</tr><tbody></table><button class=\"btn btn-success\" type=\"button\" onclick=\"addRow('#veTable" + id + "')\"  ><i class=\"fa fa-edit\"></i></button></div></div>";
+
+                        $("#appendArea").append(rt);
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+
+                });
+            }
+        }
+
+       
+        
+
+        function showVarint(id) {
+            var url = '/purchase/varintSetup/' + id;
+            //window.open(url, "", "width=400, height=200");
+
+            var w = 950;
+            var h = 500;
+            var left = Number((screen.width / 2) - (w / 2));
+            var tops = Number((screen.height / 2) - (h / 2));
+
+            window.open(url, '', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + tops + ', left=' + left);
+            //$("#loadUrl").load(url, function () {
+            //    $(".modal-title").text("Variant")
+            //    $("#showModal").modal('show');
+            //    $('body').append("<script type='text/javascript' src='/backEnd/assets/js/jquery.min.js'><\/script>");
+            //    $('body').append("<script type='text/javascript' src='/backEnd/assets/js/bootstrap.min.js'><\/script>");
+            //    $('body').append("<script type='text/javascript' src='/backEnd/assets/js/ns.js'><\/script>");
+            //});
+            
+        }
+
+
+
+        //function varintSave() {
+        //    alert(0);
+        //    //var vs = $("#formvarint").serializeArray();
+        //    var vs = $("#formvarint").serialize();
+
+        //    //var totalFiles = document.getElementById("Iupload").files.length;
+  
+        //    //https://stackoverflow.com/questions/29293637/how-to-append-whole-set-of-model-to-formdata-and-obtain-it-in-mvc
+
+        //    //for (var i = 0; i < totalFiles; i++) {
+        //    //    var file = document.getElementById("Iupload").files[i];
+
+        //    //    formData.append("Document", file);
+        //    //}
+
+        //    //vs.append("NameCode", $('#SelecterID').val());
+        //    //vs.append("AirLineCode", $('#SelecterID').val());
+
+
+           
+            
+        //    console.log(vs);
+        //    var formdata = new FormData($('form').get(0));
+        //    console.log(formdata);
+            
+        //    $.ajax({
+
+        //        url: '/purchase/varintSetup',
+        //        data: { vs },
+        //        type: 'post',
+        //        success: function (result) {
+        //            if (result == true) {
+        //                $.notify("Saved", "success");
+        //            }
+        //        },
+        //        error: function () {
+        //            $.notify("BOOM!", "error");
+        //        }
+        //    })
+            
+        //}
+    </script>
+
+    }

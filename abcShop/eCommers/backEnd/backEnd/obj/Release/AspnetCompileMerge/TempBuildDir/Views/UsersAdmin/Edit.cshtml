@@ -1,0 +1,92 @@
+﻿@model backEnd.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="section-content">
+    <div class="content-head">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Edit Users</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+        </div>
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Edit User Form.</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.image)
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Username, new { @class = "control-label" })
+
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                
+
+            </div>*@
+
+            <div class="form-group">
+                <img src="~/AppFiles/@Model.image" class="img-thumbnail" />
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+
+            </div>
+          
+            @*<div class="form-group">
+                <select id="status" name="status">
+                    <option @(Model.status == "Dactive" ? "selected" : "") value="Dactive">Active</option>
+                    <option @(Model.status == "Dactive" ? "selected": "") value="Dactive">Dactive</option>
+                </select>
+            </div>*@
+            <div class="form-group">
+                @Html.Label("This User belongs to the following Groups", new { @class = "control-label" })
+                <span class="row">
+                    @foreach (var item in Model.GroupsList)
+                    {
+
+                        <input type="checkbox" name="selectedGroups" value="@item.Value" checked="@item.Selected" class="col-md-2 checkbox-inline" />
+                        @Html.Label(item.Text, new { @class = "col-md-10 control-label" })
+
+                    }
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+        }
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

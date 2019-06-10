@@ -1,0 +1,64 @@
+﻿@model backEnd.Models.viewModels.manageCat.productsv
+
+@{
+    ViewBag.Title = "editProduct";
+    Layout = null;
+}
+
+
+<form id="cartForm">
+    <input type="hidden" name="product_id" id="product_id" value="@Model.product_id" />
+    <input type="hidden" name="order_product_id" id="order_product_id" value="@Model.order_product_id" />
+    <input type="hidden" name="order_id" id="order_id" value="@Model.order_id" />
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="detail-gallery">
+                <div class="mid">
+                    <img src="~/AppFiles/Product/@Model.main_image" alt="@Model.p_name" />
+                </div>
+
+            </div>
+            <!-- End Gallery -->
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="detail-info">
+                <p class="font-bold">
+                    <a href="/product/detail/@Model.product_id">@Model.p_name</a>
+                </p>
+                <div class="product-price">
+                    <ins class="color">৳ <span id="mainPrice">@Model.price</span><span id="cprice">@Model.v_price</span></ins>
+                </div>
+                <div class="product-rate">
+                    <div class="product-rating" style="width:100%"></div>
+                </div>
+               
+
+                <div>
+                    @Html.Raw(ViewBag.variant)
+                </div>
+                <div class="detail-qty">
+                    Quentity<input name="quentity" id="quentity" onchange="qty()" value="1" type="number" class="form-control" />
+
+                </div>
+
+                <div class="btn">
+                    <a href="javascript:void(0)" onclick="addCart()" class="addcart-link">Add to cart</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    @*<script>
+            $(document).ready(function () {
+
+                });
+
+
+        </script>*@
+}
+
+<!-- End Content -->

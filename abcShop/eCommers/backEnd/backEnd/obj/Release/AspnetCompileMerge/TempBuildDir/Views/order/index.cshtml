@@ -1,0 +1,103 @@
+﻿@model IEnumerable<backEnd.DataModel.order_tbl>
+
+@{
+    ViewBag.Title = "index";
+}
+
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+<div class="row">
+    <div class="col-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Ecommerce Orders</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+
+            <div class="content-details show">
+                <div class="order-content">
+
+                   
+
+                    <table id="order-listing data-table4" class="table table-striped data-table4">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Order Date</th>
+                                <th>Customer</th>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.order_id) </td>
+                                <td>@Html.DisplayFor(modelItem => item.date_added) </td>
+                                <td>@Html.DisplayFor(modelItem => item.firstname) </td>
+                                <td>@Html.DisplayFor(modelItem => item.payment_telephone)</td>
+                                <td>@Html.DisplayFor(modelItem => item.total)</td>
+                                <td>@Html.DisplayFor(modelItem => item.payment_method)</td>
+                                <td class="text-danger">
+                                    @Html.DisplayFor(modelItem => item.order_status)
+                                </td>
+                                <td>
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.order_id }, new { @class = "btn radius btn-sm btn-primary" }) |*@
+
+                                    @Html.ActionLink("View", "View", new { id = item.order_id }, new { @class = "btn btn-outline-primary" })
+                                </td>
+                            </tr>
+                            }
+                            
+                           
+
+
+                        </tbody>
+                    </table>
+                </div><!-- /.order-content -->
+            </div><!-- /.content-details -->
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table4').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+
+        });
+    </script>
+}

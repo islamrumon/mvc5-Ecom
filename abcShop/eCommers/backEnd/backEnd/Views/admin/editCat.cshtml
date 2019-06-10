@@ -1,0 +1,105 @@
+﻿@model backEnd.Models.viewModels.manageCat.edit_category_vm
+
+@using (Html.BeginForm("editCat", "admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.serial)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label " })
+        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.videoLink, htmlAttributes: new { @class = "control-label " })
+        @Html.EditorFor(model => model.videoLink, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.videoLink, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.parentID, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownList("parentID", (IEnumerable<SelectListItem>)ViewData["parentCat"], "-Please select-", htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.parentID, "", new { @class = "text-danger" })
+        <span>Do You Change The parent Category</span>
+    </div>
+
+    <input type="hidden" value="@Model.LogoV" name="LogoV" />
+    <input type="hidden" value="@Model.BannerV" name="BannerV" />
+    <div class="form-group">
+        @Html.LabelFor(model => model.LogoV, htmlAttributes: new { @class = "control-label" })
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" id="file" name="logo" value="@Model.LogoV" class="form-control" onchange="return fileValidation()" />
+            </div>
+            <div class="col-md-6" id="imagePreview">
+                <img width="140" height="100" class="img-thumbnail" src="~/AppFiles/Cat/@Model.LogoV" id="editHiddenlogo" />
+            </div>
+            <div id="error">
+                @*<span class="text-danger" style="display:none">Please upload file having extensions .jpeg/.jpg/.png/.gif only.</span>*@
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BannerV, htmlAttributes: new { @class = "control-label" })
+        <div class="row">
+            <div class="col-md-6">
+                <input type="file" id="banner" name="banner" value="@Model.BannerV" class="form-control" onchange="return fileValidationBanners()" />
+            </div>
+            <div class="col-md-6" id="imagePreviewBanner">
+                <img width="140" height="100" class="img-thumbnail" src="~/AppFiles/Cat/@Model.BannerV" id="editHiddenBanner" />
+            </div>
+            <div id="errorBanner">
+                @*<span class="text-danger" style="display:none">Please upload file having extensions .jpeg/.jpg/.png/.gif only.</span>*@
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <div class="checkbox">
+            @Html.CheckBoxFor(model => model.top_cat)
+            <label class="control-label">Save to Top Category</label>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Sort Order</label>
+
+        @Html.EditorFor(model => model.sort_order, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.sort_order, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+
+
+        <div class="checkbox">
+            @Html.CheckBoxFor(model => model.status)
+            <label class="control-label">Aactive Category</label>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}

@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "manageCat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+    <div class="section-content">
+        <div class="content-head">
+            <div class="row">
+                <div class="col-md-6">
+                    @if(User.IsInRole("manageCategory")) {
+                    <button type="button" class="btn btn-sm  btn-primary" id="createCat">Create Category</button>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div class="corner-content float-right">
+                        <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                        <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                        <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                        <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                    </div><!-- /.corner-content -->
+                </div>
+            </div>
+
+
+
+        </div><!-- /.content-head  s -->
+        
+        
+        <div class="content-details show">
+            <table id="data-table" class="table data-table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Category Name</th>
+                        <th>Parent Category</th>
+                        <th>Status</th>
+                        <th>Short By</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @Html.Raw(ViewBag.Tree)
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Top Menu</th>
+                        <th>Short By</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.content-details -->
+
+
+    </div>
+
+
+<!--This is modale section-->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div> <!--End THe Modal section-->

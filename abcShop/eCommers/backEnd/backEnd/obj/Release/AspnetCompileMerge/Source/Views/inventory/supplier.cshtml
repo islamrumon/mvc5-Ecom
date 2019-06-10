@@ -1,0 +1,235 @@
+﻿
+    @model backEnd.Models.viewModels.supplier_vm
+
+@{
+    ViewBag.Title = "supplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Supplier Setup</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                           
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                               <label class="control-label">Supplier Name</label>
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required="required" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            
+                            </div>
+
+                            <div class="form-group">
+                               <label class="control-label">Contect Number</label>
+                              
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" , required="required"} })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                              
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Address</label>
+                                @Html.TextAreaFor(model => model.Address, new {  @class = "form-control", @cols = 80, @rows = 10 })
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">Contact Person</label>
+                          
+                                    @Html.EditorFor(model => model.Contact_Person, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Contact_Person, "", new { @class = "text-danger" })
+
+                            </div>
+
+                            <div class="form-group">
+                               <label class="control-label">Mail</label>
+                        
+                                    @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+                        
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Supplier List</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                <div class="card pay-invoice">
+                    <div class="card-body" id="editFormdiv">
+                        <table id="data-table1" class="table data-table1 table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+
+                                    <th>Status</th>
+                                    <th>Mail</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <!--Load Partila View-->
+                            <tbody>
+                                @foreach(var s in Model.spList)
+                                {
+                                <tr id="tr_@Html.DisplayFor(modelItem => s.supplier_id)">
+                                    <td> @Html.DisplayFor(modelItem => s.Name)</td>
+                                    <td> @Html.DisplayFor(modelItem => s.Phone)</td>
+                                    <td>
+                                        @if (s.Status)
+                                        {
+                                            <span class="badge badge-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">DeActive</span>
+                                        }
+                                    </td>
+                                    <td> @Html.DisplayFor(modelItem => s.Mail)</td>
+                                    <td>
+                                        
+                                        <a href="javascripts:void(0)" class="btn btn-info" onclick="editSupplier(@Html.DisplayFor(modelItem => s.supplier_id))"><i class="fa fa-edit"></i></a> |
+                                        <a href="javascripts:void(0)" class="btn btn-danger" onclick="deleteSupplier(@Html.DisplayFor(modelItem => s.supplier_id))"><i class="pe-7s-trash"></i></a>
+                                    </td>
+                                </tr>
+                                }
+                               
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--This is modale section-->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div> <!--End THe Modal section-->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table1').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+
+
+        });
+
+        function editSupplier(id) {
+            var url = "/inventory/editSupplier/" + id;
+            $("#loadUrl").load(url, function () {
+                $(".modal-title").text("Edit Variant")
+                $("#showModal").modal('show');
+            });
+        }
+
+        //delete order status
+        function deleteSupplier(id) {
+            var x = confirm("Are you sure you want to delete?");
+            if (x) {
+                $.ajax({
+                    type: 'post',
+                    url: '/inventory/deleteSupplier',
+                    data: { id: id },
+                    success: function () {
+                        $.notify("Supplier is  Deleted", "success");
+                        $("#tr_" + id).remove();
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+                });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+
+
+
+    </script>
+}
+
+

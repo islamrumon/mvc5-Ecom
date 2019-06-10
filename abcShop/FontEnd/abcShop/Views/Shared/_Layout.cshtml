@@ -1,0 +1,122 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Fruit Shop is new Html theme that we have designed to help you transform your store into a beautiful online showroom. This is a fully responsive Html theme, with multiple versions for homepage and multiple templates for sub pages as well" />
+    <meta name="keywords" content="Fruit,7uptheme" />
+    <meta name="robots" content="noodp,index,follow" />
+    <meta name='revisit-after' content='1 days' />
+    <title> @ViewBag.Title </title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/ionicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery.fancybox.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.transitions.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/owl.theme.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/animate.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/libs/hover.css" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/color13.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/theme.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/responsive.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/browser.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="~/forntEnd/css/style.css" media="all" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/rtl.css" media="all"/> -->
+</head>
+<body class="preload">
+    <div class="wrap">
+        @Html.Partial("_header")
+        <!-- End Header -->
+        @RenderBody()
+        <!-- End Content -->
+
+        @Html.Partial("_footer")
+        <!-- End Footer -->
+        @*<a href="#" class="scroll-top round"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+            <div id="boxes">
+                <div class="window" id="dialog">
+                    <div class="window-popup text-center">
+                        <a href="#" class="close-popup"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        <div class="content-popup">
+                            <h2 class="title30 text-uppercase white">Subscribe now</h2>
+                            <form>
+                                <input type="text" value="Enter Your Email..." onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue">
+                                <input type="submit" class="shop-button title18 text-uppercase" value="Subscribe!" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="mask"></div>
+            </div>*@
+        <!-- End Newsletter Popup -->
+        <div class="wishlist-mask">
+            <div class="wishlist-popup">
+                <span class="popup-icon color"><i class="fa fa-bullhorn" aria-hidden="true"></i></span>
+                <p class="wishlist-alert">"Fruit Product" was added to wishlist</p>
+                <div class="wishlist-button">
+                    <a href="#">Continue Shopping (<span class="wishlist-countdown">10</span>)</a>
+                    <a href="#">Go To Shopping Cart</a>
+                </div>
+            </div>
+        </div>
+        <!-- End Wishlist Mask -->
+        <div id="loading">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_four"></div>
+                    <div class="object" id="object_three"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_one"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End Preload -->
+
+        <div id="showModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="loadUrl">
+                        <!--here load partial view-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="~/forntEnd/js/jquery.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.jcarousellite.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/slick.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/popup.js"></script>
+    
+    <script type="text/javascript" src="~/forntEnd/js/libs/timecircles.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/libs/wow.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/notify.min.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/theme.js"></script>
+    <script type="text/javascript" src="~/forntEnd/js/app.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>

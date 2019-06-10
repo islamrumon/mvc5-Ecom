@@ -1,0 +1,206 @@
+﻿@model backEnd.Models.viewModels.order_vm
+
+@{
+    ViewBag.Title = "orderEdit";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-12">
+            <div class="section-content">
+                <div class="content-head">
+                    <h4 class="content-title">Order Edit</h4><!-- /.content-title -->
+                    <div class="corner-content float-right">
+                        <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                        <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                        <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                        <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                    </div><!-- /.corner-content -->
+                </div><!-- /.content-head -->
+
+                <div class="content-details show" id="printSection">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!--This is Order detilas or Shipping Detilas-->
+
+                            <p class="mt-2 mb-2"><b>Dear Admin</b></p>
+                            <p class="mt-2 mb-2">
+                                <b>Payment Method  </b><br />
+                                <select name="payment_method" class="form-control">
+                                    <option value="CashOnDelivary" @(Model.payment_method == "CashOnDelivary" ? "selected" : "" )>Cash On Delivary*</option>
+                                    <option value="BankPyment" @(Model.payment_method == "BankPyment" ? "selected" : "")>Bank Pyment</option>
+                                    <option value="BikasPyment" @(Model.payment_method == "BikasPyment" ? "selected" : "")>Bikas Pyment</option>
+                                </select>
+                            </p>
+                            @if (Model.shipping_telephone != null)
+                            {
+                                <p class="mt-2 mb-2">
+                                    <b>Shipping Address  </b><br />
+                                    @Html.TextAreaFor(model => model.shipping_address_1, new { @class = "form-control", @cols = "5", @rows = "7" })
+
+                                </p>
+                                <p class="mt-2 mb-2">
+                                    <b>PhoneNumber  </b><br />
+                                    @Html.EditorFor(modal => modal.shipping_telephone, new { htmlAttributes = new { @class = "form-control" } })
+                                </p>
+                            }
+
+                        </div>
+                        <div class="col-md-6">
+                            <!--this is customer detials payment section-->
+                            @Html.HiddenFor(model => model.order_id)
+                            @Html.HiddenFor(model => model.customer_id)
+                            @Html.HiddenFor(model => model.firstname)
+                            @Html.HiddenFor(model => model.lastname)
+                            @Html.HiddenFor(model => model.order_status)
+                            @Html.HiddenFor(model => model.date_added)
+                            @Html.HiddenFor(model => model.total)
+                            @Html.HiddenFor(model => model.comment)
+                            @Html.HiddenFor(model => model.email)
+
+
+                            @if (Model.invoice_no != null)
+                            {
+                                <h3 class="text-right mt-0 my-3">Invoice&nbsp;&nbsp;@Model.invoice_prefix-000 @Model.invoice_no</h3>
+                            }
+                            <p class="mt-2 mb-2 text-right"><b>Name  </b><br />@Model.firstname  @Model.lastname</p>
+                            <p class="mt-2 mb-2 text-right">
+                                <b>PhoneNumber  </b><br />
+                                @Html.EditorFor(mod => mod.payment_telephone, new { htmlAttributes = new { @class = "form-control text-right" } })
+                            </p>
+
+                            <p class="mt-2 mb-2 text-right"><b>Address </b></p>
+                            <p class="text-right">
+                                @Html.TextAreaFor(model => model.payment_address_1, new { @class = "form-control text-right", @cols = "5", @rows = "7" })
+                            </p>
+
+                        </div>
+
+                        <hr />
+                        <div class="col-12">
+                            <p><b>Updated Data:</b> @DateTime.Now</p>
+                            <p class="mb-0"><b>Invoice Date :</b> @Model.date_added</p>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr class="bg-dark text-white">
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Main Price</th>
+                                <th>TotalPrice</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var op in Model.orderProductList)
+                            {
+                                <tr>
+                                    <td>
+                                        @op.name
+                                        @if (op.varints != null)
+                                        {
+                                            foreach (var v in op.varints)
+                                            {
+                                                <p>@v.variantName : <span>@v.varintUnit</span></p>
+                                            }
+                                        }
+                                    </td>
+                                    <td>@op.quantity</td>
+                                    <td>@op.price</td>
+                                    <td>@op.total</td>
+                                    <td>
+                                        <a class="btn btn-warning" onclick="editProduct(@op.order_product_id)">Edit Product</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                    <!--This is Total Price-->
+                    <div class="table-bottom row">
+
+                        <div class="col-12 text-right">
+                            @*<p class="text-right mb-2">Sub - Total amount: ৳12,348</p>
+                                <p class="text-right">vat (10%) : ৳138</p>*@
+                            <h4 class="text-right mb-5">Total : ৳  @Model.total</h4>
+                            <hr>
+                        </div>
+                        <div class="text-right col-12 buttons printBTN">
+                            <input class="btn btn-purple float-right mt-4 ml-2" type="submit" value="Save" />
+
+                        </div>
+                    </div>
+                </div><!-- /.content-details -->
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--Naire -->
+
+}
+
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        function editProduct(id) {
+            debugger
+            var url = '/order/editProduct/' + id;
+            $(".modal-title").text("Product Edit");
+            $("#loadUrl").load(url, function () {
+                $('body').append('<script src="/backEnd/assets/js/appScript.js"><\/script>')
+                $("#showModal").modal('show');
+                
+            })
+        }
+    </script>
+}
+
+

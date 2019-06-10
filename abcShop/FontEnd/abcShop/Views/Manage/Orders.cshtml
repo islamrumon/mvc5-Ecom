@@ -1,0 +1,67 @@
+﻿@model IEnumerable<abcShop.Models.oPtbl>
+
+@{
+    ViewBag.Title = "Orders";
+}
+<section id="content">
+    <div class="container">
+        <div class="content-page">
+            <table class="table table-bordered table-dark">
+                <tr>
+                  
+                   
+                    <th  scope="col">
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                    <th  scope="col">
+                        @Html.DisplayNameFor(model => model.varints)
+                    </th>
+                    <th  scope="col">
+                        @Html.DisplayNameFor(model => model.quantity)
+                    </th>
+                    <th  scope="col">
+                        @Html.DisplayNameFor(model => model.price)
+                    </th>
+                    <th  scope="col">
+                        @Html.DisplayNameFor(model => model.total)
+                    </th>
+                  
+                   
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                       
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @if (item.pvriant != null)
+                            {
+                                foreach (var v in item.pvriant)
+                                {
+                                    <p>@v.variantName : <span>@v.varintUnit</span></p>
+                                }
+                            }
+                            @Html.DisplayFor(modelItem => item.varints)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.total)
+                        </td>
+                        
+                        
+                    </tr>
+                }
+
+            </table>
+            </div>
+        </div>
+    </section>

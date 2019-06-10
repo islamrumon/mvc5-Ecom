@@ -1,0 +1,44 @@
+﻿@model backEnd.Models.viewModels.variant_unit_m
+
+<form id="variantForm">
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label">Variant Name</label>
+            @Html.EditorFor(model => model.variant_name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.variant_name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Variant Type</label>
+            @Html.EnumDropDownListFor(model => model.type, htmlAttributes: new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        </div>
+        <div class="row" id="appinForm">
+            <div id="appinForm">
+                <div class="form-group">
+                    <input class="form-control" name="unit_name" />
+                </div>
+                <div class="col-md-9">
+                    <a class="bnt btn-danger" onclick="removiInputForm()"></a>
+                </div>
+            </div>
+            <div class="col-md-9">
+
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary" onclick="appininputForm()" href="jabascript:void(0)"><i class="fa-pencil-square-o"></i></a>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+                <a href="javascript:void(0)" class="btn btn-success" onclick="saveVarintBtn()"><i class="fa fa-save"></i></a>
+            </div>
+        </div>
+    </div>
+
+</form>
+

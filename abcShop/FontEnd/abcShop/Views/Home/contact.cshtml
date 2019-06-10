@@ -1,0 +1,71 @@
+﻿@model abcShop.DataModel.contact_tbl
+
+@{
+    ViewBag.Title = "contact";
+}
+
+<section id="content">
+    <div class="container">
+        <div class="content-page">
+            <div class="contact-map border">
+                <iframe src="@ViewBag.map" style="border:0" allowfullscreen="" width="1170" height="380"></iframe>
+            </div>
+            <div class="contact-info-page">
+                <div class="list-contact-info">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="item-contact-info text-center">
+                                <a class="contact-icon color wobble-horizontal" href="#"><i class="fa fa-mobile"></i></a>
+                                <h2 class="title18 text-upperrcase font-bold">Hotline: @ViewBag.phoneNumber1</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="item-contact-info text-center">
+                                <a class="contact-icon color wobble-horizontal" href="#"><i class="fa fa-phone"></i></a>
+                                <h2 class="title18 text-upperrcase font-bold">Call: @ViewBag.phoneNumber2</a></h2>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="item-contact-info text-center">
+                                <a class="contact-icon color wobble-horizontal" href="@ViewBag.email"><i class="fa fa-envelope"></i></a>
+                                <h2 class="title18 text-upperrcase font-bold"><a href="@ViewBag.email">@ViewBag.email</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="desc">If the supplier fails to ship your products on time or the product quality does not meet the standards set in your contract, Aloshop will refund the covered amount of your payment.</p>
+            </div>
+            <div class="contact-form-page">
+                <h2 class="title30 text-uppercase font-bold">contact from</h2>
+                <div class="form-contact">
+                    @using (Html.BeginForm())
+                    {
+                        
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <input name="name" value="Name *" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" type="text">
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <input name="email" value="Email *" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" type="text">
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+                                @*<div class="col-md-4 col-sm-4 col-xs-12">
+                        <input name="website" value="Website" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" type="text">
+                    </div>*@
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <textarea name="texts" cols="30" rows="8" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue"></textarea>
+                                    @Html.ValidationMessageFor(model => model.texts, "", new { @class = "text-danger" })
+                                    <input class="shop-button" value="Send Message" type="submit">
+                                </div>
+                            </div>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- End Content Page -->
+    </div>
+</section>

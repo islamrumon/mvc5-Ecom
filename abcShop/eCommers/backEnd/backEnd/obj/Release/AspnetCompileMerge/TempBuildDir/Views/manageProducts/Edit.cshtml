@@ -1,0 +1,364 @@
+﻿
+@model backEnd.Models.viewModels.product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Edit Product</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="javascript:void(0)" class="btn app-btn btn-success" id="btnformData"><i class="fa fa-save">Update product</i></a>
+
+                    </div>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+            <input type="hidden" value="@Model.product_id" />
+            <div class="content-details show">
+                <div class="tab-6">
+                    <ul class="nav nav-tabs nav-pills radius" id="tab6" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#section16" role="tab" aria-controls="section16" aria-selected="false" aria-expanded="true">Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#section17" role="tab" aria-controls="section17" aria-selected="false" aria-expanded="false">Gallery</a>
+                        </li>
+                        @*<li class="nav-item">
+                                <a class="nav-link" onclick="relatedTab(@Model.product_id)" data-toggle="tab" href="#section18" role="tab" aria-controls="section18" aria-selected="false" aria-expanded="false">Releted Product</a>
+                            </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" data-id="@Model.product_id" data-toggle="tab" href="#section80" role="tab" aria-controls="section80" aria-selected="false" aria-expanded="false">Variant</a>
+                        </li>
+                    </ul>
+                    @using (Html.BeginForm("Edit", "manageProducts", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "formData" }))
+                    {
+                        @Html.AntiForgeryToken();
+
+                        <div class="tab-content">
+
+                            <!--This section for About Product-->
+                            <div class="tab-pane fade active show" id="section16" role="tabpanel" aria-labelledby="section16" aria-expanded="true">
+
+                                @*@Html.AntiForgeryToken()*@
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.product_id)
+                                @Html.HiddenFor(model => model.main_image)
+
+
+
+                                <div class="row">
+                                    <!--Main image section-->
+                                    <div class="col-lg-5">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Select Main Image
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <div class="row">
+
+                                                        <div class="col-md-12">
+                                                            <input type="file" id="banner" name="mainImage" class="form-control" onchange="return fileValidationBanners()" />
+                                                        </div>
+                                                        <div class="col-md-12" id="imagePreviewBanner"></div>
+                                                        <div id="errorBanner">
+                                                        </div>
+                                                        <img src="~/AppFiles/Product/@Model.main_image" class="img-thumbnail" id="editHiddenBanner" style="width:150px; height:120px;" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div><!--main image -->
+
+
+                                    </div> <!--End upload main image-->
+                                    <!---->
+                                    <div class="col-lg-7">
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Category Name</label>
+                                            @Html.EditorFor(model => model.p_name, new { htmlAttributes = new { @class = "form-control", @requried = "requried" } })
+                                            @Html.ValidationMessageFor(model => model.p_name, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Price</label>
+                                            @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @requried = "requried" } })
+                                            @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Video Link</label>
+                                            @Html.EditorFor(model => model.videoLink, new { htmlAttributes = new { @class = "form-control", @requried = "requried" } })
+                                            @Html.ValidationMessageFor(model => model.videoLink, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Quantity</label>
+                                            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @requried = "requried" } })
+                                            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label">Edit  Brand</label>
+                                            <select name="manufacturer_id"  class="form-control">
+                                                @Html.Raw(ViewBag.brand)
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="label">Edit Categoryes</label>
+                                            <select name="CategoryID" multiple class="standardSelect">
+                                                @Html.Raw(ViewBag.cat)
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">About</label>
+                                            @Html.TextAreaFor(model => model.discription, new { id = "compose-textarea", @class = "form-control", @cols = 80, @rows = 10 })
+                                            @*<textarea class="form-control" id="compose-textarea" value="@Model.discription" name="discription"></textarea>*@
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label">Edit Related Product</label>
+                                            <select name="related_id" multiple class="standardSelect">
+                                                @Html.Raw(ViewBag.pro)
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div><!--/End about Product-->
+                            <!--This scetion for gallery -->
+                            <div class="tab-pane fade" id="section17" role="tabpanel" aria-labelledby="section17" aria-expanded="false">
+                                <br />
+
+                                <div class="form-group">
+                                    <div id="image">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="javascript:void(0)" onclick="appendImg()" class="btn  btn-primary">Choose Image</a>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+
+                                <div class='row'>
+                                    <!--Thare Are partial view-->
+                                    @Html.Raw(ViewBag.img);
+                                </div>
+
+                            </div>
+
+                            <!--/End related product-->
+                            <!--This section variant-->
+                            <div class="tab-pane fade" id="section80" role="tabpanel" aria-labelledby="section80" aria-expanded="false">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @Html.Raw(ViewBag.variantList)
+                                    </div>
+                                    <div class="col-md-8">
+   
+                                                <div id="appendArea">
+
+                                                    @Html.Raw(ViewBag.vValue)
+                                                </div>
+
+                                            
+                                        </div>
+                                      
+                                    </div>
+
+
+
+                                </div>
+
+                            <!--/End Variant -->
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--This is modale section-->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div  class="modal-body" id="loadUrl">
+                <!--here load partial view-->
+            </div>
+        </div>
+    </div>
+</div> <!--End THe Modal section-->
+
+@section scripts{
+    <script type="text/javascript">
+
+        function changeView(thisTag, id, name) {
+            alert("i am form 1");
+            $(thisTag).toggleClass('btn-success');
+
+            if ($("#appendArea").find("#appendVarientUnit" + id).length > 0) {
+                $("#appendVarientUnit" + id).remove();
+            } else {
+
+                $.ajax({
+                    url: '/manageProducts/getUnit/' + id,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (result) {
+                        var rt = "<div class='section-content m-0'><div class='content-head'>" +
+                        "<h4 class='content-title'>" + name + "</h4><div class='corner-content float-right'>" +
+                            "<button class='content-settings' data-toggle='tooltip' data-placement='top' data-original-title='Settings'><i class='fa fa-cog'></i></button>" +
+                            "<button class='content-refresh'data-toggle='tooltip' data-placement='top' data-original-title='Reload'><i class='fa fa-refresh'></i></button>" +
+                            "<button class='content-collapse' data-toggle='tooltip' data-placement='top' data-original-title='Collapse'><i class='fa fa-angle-down'></i></button>" +
+                            "<button class='content-close' data-toggle='tooltip' data-placement='top' data-original-title='Close'><i class='fa fa-close'></i></button>" +
+                            "</div></div><div class='content-details show'><div id='appendVarientUnit" + id + "'><table id='veTable" + id + "' class='table' ><tbody><input type='hidden' name='varient_id' value='" + id + "' /><tr id='ar" + result.variant_unit_id + "'><td><select name='variant_unit_id' class='form-control'>";
+                        $.each(result.list, function (index, value) {
+                            rt += '<option value="' + value.variant_unit_id + '">' + value.unit_name + '</option>';
+
+                        });
+                        rt += "</select></td><td><input class=\"form-control\" type=\"text\" placeholder=\"Quentity\" name=\"quentity\"/></td>" +
+                            "<td><input class=\"form-control\" type=\"text\" placeholder=\"+/-Price\" name=\"pVprice\" /></td>" +
+                            "<td><button class=\"btn btn-danger removeVfrom\" type=\"button\" ><i class=\"fa fa-trash\"></i></button></td>" +
+                            "</tr><tbody></table><button class=\"btn btn-success\" type=\"button\" onclick=\"addRow('#veTable" + id + "')\"  ><i class=\"fa fa-edit\"></i></button></div></div>";
+
+                        $("#appendArea").append(rt);
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+
+                });
+            }
+        }
+
+
+        // add row 
+        function changeView(thisTag, id, name) {
+            alert("i am form 2");
+            $(thisTag).toggleClass('btn-success');
+
+            if ($("#appendArea").find("#appendVarientUnit" + id).length > 0) {
+                $("#appendVarientUnit" + id).remove();
+            } else {
+
+                $.ajax({
+                    url: '/manageProducts/getUnit/' + id,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (result) {
+                        var rt = '<div id="appendVarientUnit' + id + '"><h4 class="content-title">' + name + '</h4><table id="veTable' + id + '" class="table" ><tbody><input type="hidden" name="varient_id" value="' + id + '" /><tr id="ar' + result.variant_unit_id + '"><td><select name="variant_unit_id" class="form-control">';
+                        $.each(result.list, function (index, value) {
+                            rt += '<option value="' + value.variant_unit_id + '">' + value.unit_name + '</option>';
+
+                        });
+                        rt += "</select></td><td><input class=\"form-control\" type=\"text\" placeholder=\"Quentity\" name=\"quentity\"/></td>" +
+                            "<td><input class=\"form-control\" type=\"text\" placeholder=\"+/-Price\" name=\"pVprice\" /></td>" +
+                            "<td><button class=\"btn btn-danger removeVfrom\" type=\"button\" ><i class=\"fa fa-trash\"></i></button></td>" +
+                            "</tr><tbody></table><button class=\"btn btn-success\" type=\"button\" onclick=\"addRow('#veTable" + id + "')\"  ><i class=\"fa fa-edit\"></i></button></div>";
+
+                        $("#appendArea").append(rt);
+                    },
+                    error: function () {
+                        $.notify("BOOM!", "error");
+                    }
+
+                });
+            }
+        }
+
+        $("#appendArea").on('click', '.removeVfrom', function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+
+        });
+
+        function addRow(e) {
+            $(e + ' tbody').each(function () {
+                var addRow = $(this).find("tr:first").html();
+                $(this).append('<tr>' + addRow + '</tr>');
+            });
+            return this;
+        }
+
+
+        //submet form
+        var arr = [];
+        //function deleteGallery for deleting gallery
+        function deleteGallery(id) {
+            arr.push(id);
+            $("#tr_" + id).remove();
+        };
+
+        //submit edite product
+        $("#btnformData").click(function () {
+            console.log(arr);
+           // var id = $.serialize(arr);
+            $.ajax({
+                url: '/manageProducts/deleteGallery/',
+                type: 'post',
+                data: { id: arr },
+                traditional: true,
+                success: function (data) {
+                    $.notify("Gallery Images is Deleted Successfully", "success");
+                },
+                error: function () {
+                    $.notify("BOOM!", "error");
+                }
+            })
+            $("#formData").submit();
+        });
+
+        
+    </script>
+}

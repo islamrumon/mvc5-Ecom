@@ -1,0 +1,376 @@
+﻿@model abcShop.Models.product
+@{
+    ViewBag.Title = "Products";
+}
+
+<section id="content">
+    <div class="container">
+        @*@if (ViewBag.baner != null)
+        {
+            <div class="shop-banner banner-adv line-scale zoom-image">
+                <a href="javascripts.void(0)" class="adv-thumb-link"><img src="@ViewBag.baner " style="max-width:100%; height: auto;" /></a>
+                <div class="banner-info">
+                    <h2 class="title30 color">
+                        @if (Session["siteName"] != null)
+                        {@Session["siteName"].ToString()}
+                    </h2>
+                    <div class="bread-crumb white">
+                        <a href="/product/findbyCat/@ViewBag.catID" class="white">@ViewBag.catName</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else*@ 
+        @if (ViewBag.video != null)
+        {
+        <div class="shop-banner banner-adv line-scale zoom-image">
+            <iframe width="100%" height="315"  src="@ViewBag.video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          
+            @*<p>@ViewBag.video</p>*@
+        </div>
+        }
+        <!-- ENd Banner -->
+        <div class="content-shop">
+            <div class="row">
+
+                <!--This is variant section-->
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <aside class="sidebar-left sidebar-shop">
+                        @*<div class="widget widget-search">
+                            <form class="search-form">
+                                <input onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" value="Search..." type="text">
+                                <input type="submit" value="">
+                            </form>
+                        </div>*@
+                        <!-- End Widget -->
+                        <div class="widget widget-category">
+                            @if (Model.proCategory != null)
+                            {
+                                <h2 class="title18 title-widget font-bold">Categories</h2>
+                                <ul class="list-none wg-list-cat">
+                                    @foreach (var c in Model.proCategory)
+                                    {
+                                        <li><a href="/categorys/products/@c.category_id">@c.cat_name</a>@*<span class="color">20</span>*@</li>
+                                    }
+                                </ul>
+                            }
+
+                        </div>
+                        <!-- ENd Widget -->
+                        <div class="widget widget-filter-price">
+                            <h2 class="title18 title-widget font-bold">Filter bY Price</h2>
+                            <div class="range-filter">
+                                <div class="slider-range"></div>
+                                <div class="silver table">
+                                    <div class="text-left"><button class="btn-filter-price text-uppercase shop-button" onclick="varintSearce()">Filter</button></div>
+                                    <div class="text-right"><div class="amount"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Filter Price -->
+                        <div class="widget widget-new-product">
+                            @*<h2 class="title18 title-widget font-bold">Varints</h2>*@
+                            <!--thare are variant  section-->
+                            @Html.Raw(ViewBag.varient_search)
+
+                        </div>
+
+                    </aside>
+                </div>
+                <!--/End Varint Section-->
+                <!--This is Product section-->
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <div class="main-content-shop">
+
+                        <div class="product-grid-view">
+                            <div class="row">
+
+                                <div id="lazy">
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--/end product section-->
+            </div>
+        </div>
+        <!-- End Content Shop -->
+    </div>
+</section>
+
+@{
+    int id = ViewBag.catID;
+}
+
+@section scripts{
+
+   
+    <script>
+
+        //this ic caled when page is load
+    @*$(document).ready(function () {
+
+        var pro = "";
+
+         $.ajax({
+             url: '/categorys/byCategory/@ViewBag.catID' ,
+             type: 'post',
+
+             success: function (data) {
+                 //console.log(data);
+                 $.each(data.list,function (index, value) {
+                     pro += "<form id='cartForm'><div class='col-md-4 col-sm-6 col-xs-6'>" +
+                         "<div class='item-product item-product-grid text-center'>" +
+                         "<div class='product-thumb'>" +
+                         "<input type='hidden' name='product_id' value='" + value.product_id + "' /><input type='hidden' name='quentity' value='1' />"+
+                         "<a href='/product/detail/" + value.product_id+"' class='product-thumb-link rotate-thumb'>" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "' >" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "'>" +
+                         "</a>" +
+                         //"<a style='cursor:pointer' onclick='quckView(" + value.product_id + ")' class='quickview-link'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "<a href='/categorys/quickview/" + value.product_id + "' class='quickview-link fancybox fancybox.iframe'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "</div>" +
+                         "<div class='product-info'>" +
+                         "<h3 class='product-title'><a href='/product/detail/" + value.product_id +"'>" + value.p_name + "</a></h3>" +
+                         "<div class='product-price'>" +
+                         "<ins class='color'>৳ <span>" + value.price + "</span></ins>" +
+                         "</div>" +
+                         "<div class='product-rate'>" +
+                         "<div class='product-rating' style='width:100%'></div>" +
+                         "</div>" +
+                         "<div class='product-extra-link'>" +
+                         
+                         "<a href='javascript:void(0)' class='addcart-link'  onclick='addCarts(" + value.product_id+")'>Add to cart</a>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div></form>";
+                 });
+                  
+                 $("#lazy").append(pro);
+                 $('body').append("<script type='text/javascript' src='/forntEnd/js/theme.js'><\/script>");
+                 $('body').append("<script type='text/javascript' src='/forntEnd/js/app.js'><\/script>");
+                 //$('.lazy').Lazy({
+                 //    // your configuration goes here
+                 //    scrollDirection: 'vertical',
+                 //    effect: 'fadeIn',
+                 //    visibleOnly: true,
+                 //    onError: function (element) {
+                 //        console.log('error loading ' + element.data('src'));
+                 //    }
+                 //});
+                },
+                error: function () {
+                    alert("Thare are some error");
+                }
+          });
+
+    });*@
+
+         $(document).ready(function () {
+
+            var pro = "";
+
+            $.ajax({
+                url: '/categorys/byCategory/@ViewBag.catID',
+                type: 'post',
+
+                success: function (data) {
+
+                    $("#lazy").append(data);
+                    $('body').append("<script type='text/javascript' src='/forntEnd/js/theme.js'><\/script>");
+                    $('body').append("<script type='text/javascript' src='/forntEnd/js/app.js'><\/script>");
+                    //$('.lazy').Lazy({
+                    //    // your configuration goes here
+                    //    scrollDirection: 'vertical',
+                    //    effect: 'fadeIn',
+                    //    visibleOnly: true,
+                    //    onError: function (element) {
+                    //        console.log('error loading ' + element.data('src'));
+                    //    }
+                    //});
+                },
+                error: function () {
+                    alert("Thare are some error");
+                }
+            });
+
+        });
+
+        //this is for product show by varinat
+
+        var vr = [];
+        var s = "";
+        function varint(id) {
+            var i = 1;
+            var pro = "";
+          
+            //debugger
+            var flag = false;
+            $.each(vr, function (index, v) {
+                if (v == id) {
+                    vr.splice(index,1);
+                    flag = true;
+                  
+                }
+            })
+
+            if (!flag) {
+                vr.push(id);
+               
+            }
+
+            if (vr.length == 0) {
+
+                i--;
+                
+                if (i == 0) {
+                    window.location.reload();
+                }
+
+                $("#lazy").empty();
+            }
+
+            //conert varint array in json
+            s = JSON.stringify(vr);
+           
+            $.ajax({
+                url: '/categorys/byVariant',
+                type: 'post',
+                data: { vr: s },
+                success: function (result) {
+                    $("#lazy").empty();
+                   
+                    $.each(result.list,function (index, value) {
+                     pro += "<form id='cartForm'><div class='col-md-4 col-sm-6 col-xs-6'>" +
+                         "<div class='item-product item-product-grid text-center'>" +
+                         "<div class='product-thumb'>" +
+                         "<input type='hidden' name='product_id' value='" + value.product_id + "' /><input type='hidden' name='quentity' value='1' />"+
+                         "<a href='/product/detail/" + value.product_id+"' class='product-thumb-link rotate-thumb'>" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "' >" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "'>" +
+                         "</a>" +
+                         //"<a style='cursor:pointer' onclick='quckView(" + value.product_id + ")' class='quickview-link'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "<a href='/categorys/quickview/" + value.product_id + "' class='quickview-link fancybox fancybox.iframe'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "</div>" +
+                         "<div class='product-info'>" +
+                         "<h3 class='product-title'><a href='/product/detail/" + value.product_id +"'>" + value.p_name + "</a></h3>" +
+                         "<div class='product-price'>" +
+                         "<ins class='color'>৳ <span>" + value.price + "</span></ins>" +
+                         "</div>" +
+                         "<div class='product-rate'>" +
+                         "<div class='product-rating' style='width:100%'></div>" +
+                         "</div>" +
+                         "<div class='product-extra-link'>" +
+                        
+                         "<a href='javascript:void(0)' class='addcart-link'  onclick='addCarts(" + value.product_id+")'>Add to cart</a>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div></form>";
+                 });
+
+                    $("#lazy").html(pro);
+                 $('body').append("<script type='text/javascript' src='/forntEnd/js/theme.js'><\/script>");
+                 //$('body').append("<script type='text/javascript' src='/forntEnd/js/app.js'><\/script>");
+                },
+                error: function () {
+                    alert("Thare are some error");
+                }
+            });
+        }//end virant 
+
+
+
+        var maxa = 0;
+        var mina = 0;
+        var mi= @ViewBag.minP;
+        var ma = @ViewBag.maxP;
+        console.log(mi);
+        console.log(ma);
+         //Filter Price
+            if ($('.range-filter').length > 0) {
+
+                $('.range-filter').each(function () {
+                    $(this).find(".slider-range").slider({
+                        range: true,
+                        min: mi,
+                        max: ma,
+                        values: [mi, ma],
+                        slide: function (event, ui) {
+                            $(this).parents('.range-filter').find(".amount").html('<span>' + 'Price: $' + ui.values[0] + '</span>' + '<span>' + ' - $' + ui.values[1] + '</span>');
+                            maxa = ui.values[1];
+                            mina = ui.values[0];
+
+                        }
+                    });
+                    $(this).find(".amount").html('<span>' + 'Price: $' + $(this).find(".slider-range").slider("values", 0) + '</span>' + '<span>' + ' - $' + $(this).find(".slider-range").slider("values", 1) + '</span>');
+                });
+            }
+
+
+            //this funtion pass the price max or minimum pvvIDs caegorys
+
+        function varintSearce() {
+             filterProduct(this.maxa, this.mina, s, @ViewBag.catID);
+        }
+
+        function filterProduct(maxa, mina, pvv, catID) {
+            var pro = "";
+            $.ajax({
+                url: '/categorys/filterProduct',
+                data: { max: maxa, min: mina, pvv: pvv, cid: catID },
+                type: 'post',
+                success: function (result) {
+                    $("#lazy").empty();
+                   
+                    $.each(result.list,function (index, value) {
+                     pro += "<form id='cartForm'><div class='col-md-4 col-sm-6 col-xs-6'>" +
+                         "<div class='item-product item-product-grid text-center'>" +
+                         "<div class='product-thumb'>" +
+                         "<input type='hidden' name='product_id' value='" + value.product_id + "' /><input type='hidden' name='quentity' value='1' />"+
+                         "<a href='/product/detail/" + value.product_id+"' class='product-thumb-link rotate-thumb'>" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "' >" +
+                         "<img src='@ViewBag.proImg"+value.main_image + "'>" +
+                         "</a>" +
+                         //"<a style='cursor:pointer' onclick='quckView(" + value.product_id + ")' class='quickview-link'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "<a href='/categorys/quickview/" + value.product_id + "' class='quickview-link fancybox fancybox.iframe'><i class='fa fa-search' aria-hidden='true'></i></a>" +
+                         "</div>" +
+                         "<div class='product-info'>" +
+                         "<h3 class='product-title'><a href='/product/detail/" + value.product_id +"'>" + value.p_name + "</a></h3>" +
+                         "<div class='product-price'>" +
+                         "<ins class='color'>৳ <span>" + value.price + "</span></ins>" +
+                         "</div>" +
+                         "<div class='product-rate'>" +
+                         "<div class='product-rating' style='width:100%'></div>" +
+                         "</div>" +
+                         "<div class='product-extra-link'>" +
+                        
+                         "<a href='javascript:void(0)' class='addcart-link'  onclick='addCarts(" + value.product_id+")'>Add to cart</a>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div>" +
+                            "</div></form>";
+                       
+                 });
+
+                    $("#lazy").html(pro);
+                 $('body').append("<script type='text/javascript' src='/forntEnd/js/theme.js'><\/script>");
+                 //$('body').append("<script type='text/javascript' src='/forntEnd/js/app.js'><\/script>");
+                },
+                error: function () {
+                    alert("Thare are some error");
+                }
+            })
+                //console.log(this.maxa, this.mina, pvv, catID);
+            }
+
+    </script>
+
+}

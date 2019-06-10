@@ -1,0 +1,112 @@
+﻿@model backEnd.DataModel.slider_image_tbl
+
+@{
+    ViewBag.Title = "createSlider";
+}
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+    
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Slider Setup</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="" data-original-title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div>
+            <div class="content-details show">
+                @using (Html.BeginForm("createSlider","admin",null,FormMethod.Post, new { enctype = "multipart/form-data"}))
+                {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Title</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label class="control-label col-md-2">Sub Title</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.subtitle, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.subtitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Link</label>
+                           
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.link, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.link, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Slider Image</label>
+                           
+                            <div class="col-md-10">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="file" id="banner" name="banner" class="form-control" onchange="return fileValidationBanners()" />
+                                                </div>
+                                                <div class="col-md-12" id="imagePreviewBanner"></div>
+                                                <div id="errorBanner">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div><!--main image -->
+                               
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Sort Order</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.sort_order, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sort_order, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+

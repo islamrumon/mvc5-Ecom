@@ -1,0 +1,129 @@
+﻿.logo.logo1 {
+    text-align: center;
+    position: relative;
+    top: 25px;
+}
+
+/*input[type=checkbox], input[type=radio] {
+    margin: 4px 4px 0px 9px;
+    margin-top: 1px\9;
+    line-height: normal;
+}*/
+
+.mini-cart1 .mini-cart-link {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    border: 2px solid #e5e5e5;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+.main-nav.main-nav1 {
+    text-align: unset;
+}
+.search-form {
+    position: relative;
+    padding-right: 296px;
+    border: 2px solid #e6b4b4;
+    background: #fff;
+    border-radius: 6px;
+}
+.main-nav > ul > li > a {
+    color: #333;
+    display: block;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 700;
+    padding: 0 19px;
+    position: relative;
+    text-transform: CAPITALIZE;
+}
+.item-slider1 .banner-info .btn-arrow {
+    margin-top: 25px;
+    border-radius: 12px;
+}
+
+
+.mega_menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+.mega_menu > li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+}
+/*. {
+    
+}*/
+
+
+
+.mega_list_ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+
+.mega_list > a {
+    color: #333;
+    display: block;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 700;
+    padding: 4px 8px;
+    text-decoration: none;
+    text-transform: CAPITALIZE;
+}
+
+a:hover{
+    color: red;
+}
+.mega_list_ul_sub {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    
+}
+
+    .mega_list_ul_sub > li {
+        display: block;
+        font-size: 12px;
+        padding: 4px 8px;
+        text-decoration: none;
+    }
+
+
+
+
+/*input:checked {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    text-decoration: none;
+    outline: none;
+    color: #b40000;
+}*/
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0px 31px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 0px solid #ddd;
+}
+
+/*.sizes{
+    height:120px;
+}*/

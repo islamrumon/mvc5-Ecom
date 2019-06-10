@@ -1,0 +1,125 @@
+﻿<header id="header">
+    <div class="header">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 hidden-xs">
+                        @*<ul class="currency-language list-inline-block pull-left">
+                                <li>
+                                    <div class="language-box">
+                                        <a href="#" class="language-current"><img src="images/icon/flag-en.png" alt=""><span>English</span></a>
+                                        <ul class="language-list list-none">
+                                            <li><a href="#"><img src="~/forntEnd/images/icon/flag-en.png" alt=""><span>English</span></a></li>
+                                            <li><a href="#"><img src="~/forntEnd/images/icon/flag-fr.png" alt=""><span>French</span></a></li>
+                                            <li><a href="#"><img src="~/forntEnd/images/icon/flag-gm.png" alt=""><span>German</span></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="currency-box">
+                                        <a href="#" class="currency-current"><span>Dollar</span></a>
+                                        <ul class="currency-list list-none">
+                                            <li><a href="#"><span class="currency-index">€</span>EUR</a></li>
+                                            <li><a href="#"><span class="currency-index">¥</span>JPY</a></li>
+                                            <li><a href="#"><span class="currency-index">$</span>USD</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>*@
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Top Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div class="logo logo1">
+                            @if (Session["siteLogo"] != null && Session["siteName"] != null)
+                            {
+                                <h1 class="hidden">@Session["siteName"].ToString()</h1>
+                                <a href="/"><img src="@Session["siteLogo"].ToString()" /></a>
+                            }
+                            else
+                            {
+                                <h1 class="hidden">Fruit Shop</h1>
+                                <a href="/"><img src="~/forntEnd/images/home/home1/logo.png" alt="" /></a>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @using(Html.BeginForm("search", "product", FormMethod.Get, new { @class = "search-form pull-left" })){
+                        <input name="s"  id="s" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" value="Search this site" type="text">
+                        @*<input type="submit" value="" />*@
+                        }
+                        
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+
+                        <div class="mini-cart-box mini-cart1 pull-right">
+                            @*<a class="" href="/Cart/Index" onmouseover="sumpalCart()">
+                                    <span class="mini-cart-icon title18 color"><i class="fa fa-shopping-basket"></i></span>
+                                    <span class="mini-cart-number">0 Item - <span class="color">$ 0.000</span></span>
+                                </a>*@
+                            <div id="cat">
+                                @Html.Raw(ViewBag.cartPanal)
+                            </div>
+                            
+                            <div class="mini-cart-content text-left">
+                                <div class="list-mini-cart-item" style="background-color: #F5F5F5;
+    float: left;
+    height: 250px;
+   overflow-y: scroll;
+     overflow-x: hidden;
+ width: 100%;">
+                                    @Html.Raw(ViewBag.simpalCart)
+                                    @*<div class="product-mini-cart table">
+                                            <div class="product-thumb">
+                                                <a href="detail.html" class="product-thumb-link"><img alt="" src="images/product/fruit_02.jpg"></a>
+                                                <a href="quick-view.html" class="quickview-link fancybox fancybox.iframe"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h3 class="product-title" style="font-size: 14px;"><a href="#">Conconut Chips</a></h3>
+                                                <div class="product-price">
+                                                    <ins><span>$400.00</span></ins>
+                                                    <del><span>$520.00</span></del>
+                                                </div>
+                                                <div class="product-rate">
+                                                    <div class="product-rating" style="width:100%"></div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+
+                                <div class="mini-cart-button">
+                                    <a class="mini-cart-view shop-button" href="/Cart/Index">View cart </a>
+                                    <a class="mini-cart-checkout shop-button" href="/Cart/Checkout">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- End Main Header -->
+        <div class="nav-header bg-white header-ontop">
+            <div class="container">
+                <nav class="main-nav main-nav1">
+                    <ul>
+                        @Html.Raw(ViewBag.showMenu)
+                    </ul>
+                    <a href="#" class="toggle-mobile-menu"><span></span></a>
+                </nav>
+            </div>
+        </div>
+        <!-- End Nav Header -->
+    </div>
+</header>

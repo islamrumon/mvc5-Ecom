@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8bdae56c319424d95f0a7a4c9579b6a" Name="Diagram1">
+        <EntityTypeShape EntityType="abcShopModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.address_tbl" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.admin_user_tbl" Width="1.5" PointX="2.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.ApplicationGroup" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.AspNetRole" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.AspNetUser" Width="1.5" PointX="8" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.backendGroupRole" Width="1.5" PointX="11" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.backendUserGroup" Width="1.5" PointX="11" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.banner_tbl" Width="1.5" PointX="4.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.category_tbl" Width="1.5" PointX="12.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.contact_tbl" Width="1.5" PointX="12.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.coupon_history_tbl" Width="1.5" PointX="13.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.coupon_product_tbl" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.coupon_tbl" Width="1.5" PointX="6.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.customer_reward_tbl" Width="1.5" PointX="8.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.customer_tbl" Width="1.5" PointX="14.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.customer_transaction_tbl" Width="1.5" PointX="14.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.customer_wishlist_tbl" Width="1.5" PointX="10.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.FRole" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.FUserClaim" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.FUserLogin" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.FUserRole" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.FUser" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.item_ladger" Width="1.5" PointX="14.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.length_class_tbl" Width="1.5" PointX="8.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.manufacturer_tbl" Width="1.5" PointX="15.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.newsletter_tbl" Width="1.5" PointX="2.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.notificatation_tbl" Width="1.5" PointX="12.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.order_history_tbl" Width="1.5" PointX="14.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.order_product_tbl" Width="1.5" PointX="16.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.order_status_tbl" Width="1.5" PointX="16.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.order_tbl" Width="1.5" PointX="16.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.order_total_tbl" Width="1.5" PointX="17.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.pages_tbl" Width="1.5" PointX="8.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.payment_method_tbl" Width="1.5" PointX="0.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_discount_tbl" Width="1.5" PointX="2.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_image_tbl" Width="1.5" PointX="18.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_related_tbl" Width="1.5" PointX="4.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_review_id" Width="1.5" PointX="18.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_special_tbl" Width="1.5" PointX="18.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_supplier" Width="1.5" PointX="10.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_tbl" Width="1.5" PointX="18.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_to_category_tbl" Width="1.5" PointX="19.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_variant_tbl" Width="1.5" PointX="12.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_variant_value" Width="1.5" PointX="18.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.purchase" Width="1.5" PointX="20.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.purchase_details" Width="1.5" PointX="20.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.shipping_method" Width="1.5" PointX="6.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.site_option_tbl" Width="1.5" PointX="20.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.site_setting_tbl" Width="1.5" PointX="20.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.slider_image_tbl" Width="1.5" PointX="14.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.slider_tbl" Width="1.5" PointX="20.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.social_tbl" Width="1.5" PointX="20.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.stock_status_tbl" Width="1.5" PointX="21.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.Supplier_tbl" Width="1.5" PointX="8.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.sysdiagram" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.userCart_tbl" Width="1.5" PointX="2.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.variant" Width="1.5" PointX="22.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.variant_unit" Width="1.5" PointX="22.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.Warehouse_tbl" Width="1.5" PointX="22.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.weight_class_tbl" Width="1.5" PointX="10.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.Parent_Category" Width="1.5" PointX="22.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.product_variant_unit_VT" Width="1.5" PointX="22.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcShopModel.ProductViewTable" Width="1.5" PointX="22.75" PointY="22.25" IsExpanded="true" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_backendGroupRoles_dbo_ApplicationGroups_ApplicationGroupId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_backendUserGroups_dbo_ApplicationGroups_ApplicationGroupId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_FUserRoles_dbo_FRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_FUserClaims_dbo_FUsers_IdentityUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_FUserLogins_dbo_FUsers_IdentityUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.FK_dbo_FUserRoles_dbo_FUsers_IdentityUser_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="abcShopModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="abcShopModel.aboutTbl" Width="1.5" PointX="5.375" PointY="23.75" />
+        <EntityTypeShape EntityType="abcShopModel.social_site" Width="1.5" PointX="17.375" PointY="23.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

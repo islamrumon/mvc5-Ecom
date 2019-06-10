@@ -1,0 +1,341 @@
+﻿@model backEnd.Models.viewModels.order_vm
+
+@{
+    ViewBag.Title = "View";
+
+    decimal totalsave = 0;
+    decimal sub_total = 0;
+
+}
+
+
+@if (ViewBag.Message != null && ViewBag.Status == true)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> @ViewBag.Message .
+        <button type="button" class="close" data-dismiss="alert" aria-lsource="" sans="" pro="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Order INVOICE</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+
+            <div class="content-details show srPrint" id="printSection">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!--This is Order detilas or Shipping Detilas-->
+
+                        <p class="mt-2 mb-2"><b>Dear Admin</b></p>
+                        <p class="mt-2 mb-2"><b>Payment Method  </b><br />@Model.shipping_method</p>
+                        @if (Model.shipping_telephone != null)
+                        {
+                            <p class="mt-2 mb-2"><b>Shipping Address  </b><br />@Model.shipping_address_1</p>
+                            <p class="mt-2 mb-2"><b>PhoneNumber  </b><br />@Model.shipping_telephone</p>
+                        }
+
+                    </div>
+                    <div class="col-md-6">
+                        <!--this is customer detials payment section-->
+                        @if (Model.invoice_no != null)
+                        {
+                            <h3 class="text-right mt-0 my-3">Invoice&nbsp;&nbsp;@Model.invoice_prefix-000 @Model.invoice_no</h3>
+                        }
+
+
+                        <p class="mt-2 mb-2 text-right"><b>Name  </b><br />@Model.firstname  @Model.lastname</p>
+                        <p class="mt-2 mb-2 text-right"><b>PhoneNumber  </b><br />@Model.payment_telephone</p>
+
+                        <p class="mt-2 mb-2 text-right"><b>Address </b></p>
+                        <p class="text-right">@Model.payment_address_1.</p>
+
+                    </div>
+
+                    <hr />
+                    <div class="col-12">
+                        <p><b>Create Data:</b> @DateTime.Now</p>
+                        <p class="mb-0"><b>Invoice Date :</b> @Model.date_added</p>
+                    </div>
+                </div>
+
+                <hr />
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr class="bg-dark text-white">
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>TotalPrice</th>
+                            @if (Model.invoice_no == null)
+                            {
+                            <th></th>
+                            }
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var op in Model.orderProductList)
+                        {
+                            <tr>
+                                <td>
+                                    <b> @op.name</b>
+                                    @if (op.varints != null)
+                                    {<p>
+                                            @foreach (var v in op.varints)
+                                            {
+                                         <span>@v.variantName : @v.varintUnit ,</span>
+                                            }
+                                        </p>
+                                    }
+                                </td>
+                                <td>@op.quantity</td>
+                                <td>
+                                    @if (op.discount != 0)
+                                    {
+                                        <del>৳ @op.price</del>
+                                        var s = op.price - op.discount;
+                                        <b>৳ @s</b>
+
+                                    }
+                                    else
+                                    {
+                                        <span>৳ @op.price</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (op.discount != 0)
+                                    {
+                                        <b>৳ @op.total</b>
+                                        var s = op.discount * op.quantity;
+                                        totalsave += Convert.ToDecimal(s);
+                                        <p>Save :<b>৳ @s</b></p>
+                                    }
+                                    else
+                                    {
+                                        <b>৳ @op.total</b>
+                                    }
+
+                                    @{
+                                        sub_total += Convert.ToDecimal(op.total);
+                                    }
+
+                                </td>
+
+                                @if (Model.invoice_no == null)
+                                {
+                                    <td>
+                                        @Html.ActionLink("Delete", "deleteProduct", new { id = op.order_product_id }, new { @class = "btn radius btn-sm btn-danger", onclick = "return confirm('Are You Sure To Delete " + op.name + "');" })
+                                    </td>
+                                }
+
+                            </tr>
+                                        }
+                    </tbody>
+
+                </table>
+
+                <!--This is Total Price-->
+                <div class="table-bottom row">
+
+                    <div class="col-12 text-right">
+                        @{ var st = totalsave + sub_total;}
+                        <p class="text-right mb-2">Sub-Total: ৳ @st</p>
+                        <p class="text-right mb-2">Total Discount: ৳ @totalsave</p>
+                        <p class="text-right"><b>Shipping Method</b>  (@Model.payment_method : ৳@Model.sAmount</p>
+                        <h4 class="text-right mb-5">Total : ৳  @Model.total</h4>
+                        <hr>
+                    </div>
+                    <div class="text-right col-12 buttons printBTN">
+                        <a href="javascript:void(0)" class="btn btn-purple float-right mt-4 ml-2" id="print"> <i class="fa fa-print"></i> Print</a>
+
+                    </div>
+                </div>
+            </div><!-- /.content-details -->
+
+
+
+
+
+        </div>
+    </div>
+
+</div>
+
+<!--This is Order Status -->
+
+
+<div class="row printBTN">
+    <div class="col-12">
+        <div class="section-content">
+            <div class="content-head">
+                <h4 class="content-title">Order History</h4><!-- /.content-title -->
+                <div class="corner-content float-right">
+                    <button class="content-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></button>
+                    <button class="content-refresh" data-toggle="tooltip" data-placement="top" title="Reload"><i class="fa fa-refresh"></i></button>
+                    <button class="content-collapse" data-toggle="tooltip" data-placement="top" title="Collapse"><i class="fa fa-angle-down"></i></button>
+                    <button class="content-close" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close"></i></button>
+                </div><!-- /.corner-content -->
+            </div><!-- /.content-head -->
+
+            <div class="content-details show ">
+                @using (Html.BeginForm("orderStatus", "order", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.order_id)
+                    @Html.HiddenFor(model => model.customer_id)
+                    <div class="form-group">
+                        <label class="control-label">Order Status</label>
+                        @if (Model.status_name != "Shipped.")
+                        {
+                            <select class="form-control" name="status_name">
+                                <option value="Pending">Pending </option>
+                                <option value="Awaiting Payment">Awaiting Payment</option>
+                                <option value="Awaiting Fulfillment">Awaiting Fulfillment</option>
+                                <option value="Awaiting Shipment">Awaiting Shipment</option>
+                                <option value="Awaiting Pickup">Awaiting Pickup</option>
+                                <option value="Partially Shipped">Partially Shipped</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Shipped">Shipped </option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Declined">Declined</option>
+                                <option value="Refunded">Refunded</option>
+                                <option value="Disputed ">Disputed </option>
+                                <option value="Verification Required">Verification Required</option>
+                                <option value="Partially Refunded">Partially Refunded</option>
+
+
+                            </select>
+                            @Html.ValidationMessageFor(m => m.status_name)
+                        }
+                        else
+                        {
+                            <p>Order is : @Model.status_name</p>
+                        }
+
+
+
+                    </div>
+                    @*<div class="form-group">
+                            <label class="control-label">Order Status</label>
+                            @Html.DropDownList("order_status_id", (SelectList)ViewBag.ToolList, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.status_name, "", new { @class = "text-danger" })
+
+                        </div>*@
+
+                    <div class="form-group">
+                        <label class="control-label">Ware House</label>
+                        @Html.DropDownList("warehouse_id", (SelectList)ViewBag.WareHouse, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.warehouse_id, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+
+                        <textarea name="comment" rows="10" cols="10" placeholder="Comment" class="form-control">
+ 
+@Model.comment
+</textarea>
+                    </div>
+
+                    <div class="checkbox">
+                        <lSource Sans Pro>
+                            @Html.CheckBoxFor(m => m.notify) Notify Customer
+                        </lSource>
+                    </div>
+
+                    <div class="text-right col-12 buttons printBTN">
+                        @if (Model.invoice_no == null)
+                        {
+                            <a href="javascript:void(0)" onclick="invoic(@Model.order_id)" class="btn btn-primary float-right mt-4"><i class="fa fa-send"></i> Save Invoice History</a>
+                        }
+
+
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+
+                        @Html.ActionLink("Edit Order", "orderEdit", new { id = Model.order_id }, new { @class = "btn btn-success float-right mt-4" })
+
+                        @Html.ActionLink("Delete", "Delete", new { id = Model.order_id }, new { @class = "btn btn-warning float-right mt-4", onclick = "return confirm('Are You Sure To Delete?')" })
+
+
+                    </div>
+
+                }
+
+            </div><!-- /.content-details -->
+
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script>
+        $("#print").click(function () {
+            window.print();
+        });
+
+        $(document).ready(function () {
+            "use strict";
+
+            $('.data-table4').DataTable({
+                "lengthMenu": [[5, 10, 15, 25, 50, -1], [5, 10, 15, 25, 50, "All"]],
+                "ordering": false
+            });
+
+        });
+
+
+        //create invoice
+        function invoic(id) {
+            debugger
+            $.ajax({
+                url: '/order/createInvoice/' + id,
+                type: 'post',
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
+
+                //delete section
+                //function deleteOrder(id) {
+                //    var result = confirm("Are you Sure to delete?");
+                //    if (result && id != null) {
+                //        Logic to delete the item
+
+                //        $.ajax({
+                //            url: '/order/orderDelete/' + id,
+                //            type: 'post',
+                //            success: function () {
+                //                $.notify("Order Delete is ")
+                //            }
+
+                //        });
+                //    }
+                //}
+
+    </script>
+}
+
